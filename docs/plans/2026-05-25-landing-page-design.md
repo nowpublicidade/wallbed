@@ -83,7 +83,25 @@ Fundo escuro. Galeria horizontal com scroll lateral:
 - Hover effect: zoom sutil + overlay com detalhes rapidos
 - Navegacao: setas laterais + indicador de progresso
 
-### 6. Para Quem E (Segmentos)
+### 6. Tem uma WallBed para cada espaco
+
+Fundo com transicao de escuro para cinza grafite. Dois blocos:
+
+**Bloco 1 — Camas Horizontais**
+- Subtitulo: "Toda a praticidade, na horizontal"
+- Explicacao curta: versao horizontal ocupa menos altura na parede, ideal para ambientes com janelas ou pe-direito mais baixo
+- 3 cards lado a lado: Prime Horizontal, Basic Horizontal, Economic Plus Horizontal
+- Cada uma disponivel em casal e solteiro
+
+**Bloco 2 — Modelos Especiais**
+- Grid com 3 cards maiores:
+  - Beliche: "Duas camas, zero espaco ocupado" — quartos de criancas, hospedagens, republicas
+  - Extensiva: "Cresce quando voce precisa" — cama que se expande, ideal para visitas
+  - Queen: "Conforto sem concessoes" — para quem nao abre mao do tamanho
+
+Cada card com: imagem em ambiente, nome, frase curta, botao "Saiba mais". Animacao: fade-up staggered no scroll.
+
+### 7. Para Quem E (Segmentos) 
 
 Fundo com gradiente escuro -> cinza. Tabs ou cards interativos:
 - Apartamentos compactos: icone + texto + imagem de contexto
@@ -93,14 +111,14 @@ Fundo com gradiente escuro -> cinza. Tabs ou cards interativos:
 
 Ao clicar em cada tab, imagem e texto mudam com transicao suave.
 
-### 7. Prova Social
+### 8. Prova Social
 
 Fundo escuro:
 - Depoimentos em carrossel: foto, nome, cidade, quote curta
 - Logos de parceiros/midia (se houver)
 - Numeros de impacto: "X clientes satisfeitos em Y cidades"
 
-### 8. CTA + Formulario de Lead/Agendamento
+### 9. CTA + Formulario de Lead/Agendamento
 
 Fundo com gradiente escuro -> rosa/coral sutil:
 - Lado esquerdo: headline persuasivo ("Pronto para transformar seu espaco?"), beneficio rapido, imagem/video
@@ -112,7 +130,7 @@ Fundo com gradiente escuro -> rosa/coral sutil:
   - Botao "Agendar Demonstracao Online" (gradiente rosa)
 - Opcao rapida: botao WhatsApp alternativo
 
-### 9. FAQ
+### 10. FAQ
 
 Fundo escuro. Accordion:
 - Como funciona o mecanismo?
@@ -121,7 +139,7 @@ Fundo escuro. Accordion:
 - Quais os tamanhos disponiveis?
 - Tem garantia?
 
-### 10. Footer
+### 11. Footer
 
 Fundo preto. Colunas:
 - Logo branca + tagline

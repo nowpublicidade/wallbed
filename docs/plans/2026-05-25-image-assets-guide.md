@@ -222,7 +222,61 @@ Cada produto fotografado em um ambiente decorado que reflete seu posicionamento.
 
 ---
 
-## 8. CTA / FORMULARIO (1 imagem)
+## 8. TEM UMA WALLBED PARA CADA ESPACO (6 imagens)
+
+### Bloco 1 — Camas Horizontais (3 imagens)
+
+### IMG-HORIZ-01 — Prime Horizontal em ambiente
+- **Descricao**: Cama retratil horizontal linha Prime ABERTA em quarto com janela — mostrando que a versao horizontal permite janelas na mesma parede
+- **Ambiente**: Quarto elegante com janela lateral na mesma parede da cama, luz natural entrando, acabamento em madeira nogueira, roupa de cama branca. A cama desce da parte inferior da parede (horizontal), com a base apoiada no chao
+- **Aspecto**: 3:2 paisagem
+- **Dimensao**: 2400x1600px
+- **Formato**: WebP (fallback JPEG 85%)
+- **Notas**: Destaque para a diferenca da horizontal: ocupa menos altura, permite janelas e quadros acima
+
+### IMG-HORIZ-02 — Basic Horizontal em ambiente
+- **Descricao**: Cama retratil horizontal linha Basic em quarto com pe-direito baixo
+- **Ambiente**: Quarto moderno com pe-direito de ~2,50m, cama horizontal branca aberta, decoracao clean, luminaria pendente, mostrando que funciona em espacos com altura limitada
+- **Aspecto**: 3:2 paisagem
+- **Dimensao**: 2400x1600px
+- **Formato**: WebP (fallback JPEG 85%)
+
+### IMG-HORIZ-03 — Economic Plus Horizontal em ambiente
+- **Descricao**: Cama retratil horizontal linha Economic Plus em studio compacto
+- **Ambiente**: Studio pequeno com cama horizontal carvalho claro aberta, sotfware ao lado, mostrando otimizacao de espaco na horizontal
+- **Aspecto**: 3:2 paisagem
+- **Dimensao**: 2400x1600px
+- **Formato**: WebP (fallback JPEG 85%)
+
+### Bloco 2 — Modelos Especiais (3 imagens)
+
+### IMG-ESP-01 — Beliche Retratil
+- **Descricao**: Cama beliche retratil com as duas camas ABERTAS, mostrando o sistema duplo
+- **Ambiente**: Quarto de criancas/jovens com decoracao divertida, ou quarto de hospedaria/republica com decoracao neutra. Duas camas uma sobre a outra, ambas rebatidas da parede. Escada de acesso lateral
+- **Aspecto**: 4:5 retrato (para dar destaque a altura)
+- **Dimensao**: 1080x1350px (@2x: 2160x2700px)
+- **Formato**: WebP (fallback JPEG 85%)
+- **Notas**: Mostrar claramente que sao DUAS camas retrateis empilhadas
+
+### IMG-ESP-02 — Cama Extensiva
+- **Descricao**: Cama extensiva/pull-out com a extensao aberta, mostrando cama de solteiro que se expande para casal
+- **Ambiente**: Quarto de hospedes acolhedor, cama principal com extensao puxada para fora formando uma cama maior. Roupa de cama coordenada em ambas as partes
+- **Aspecto**: 3:2 paisagem
+- **Dimensao**: 2400x1600px
+- **Formato**: WebP (fallback JPEG 85%)
+- **Notas**: Mostrar o mecanismo de extensao claramente — de solteiro para casal
+
+### IMG-ESP-03 — Cama Queen
+- **Descricao**: Cama retratil tamanho Queen ABERTA em suite ampla
+- **Ambiente**: Suite master generosa, cama queen com roupa de cama luxuosa, travesseiros king size, criados-mudo dos dois lados, decoracao sofisticada. Deve transmitir que nao ha compromisso de conforto
+- **Aspecto**: 3:2 paisagem
+- **Dimensao**: 2400x1600px
+- **Formato**: WebP (fallback JPEG 85%)
+- **Notas**: Enfatizar o TAMANHO — deve parecer tao confortavel quanto uma cama convencional queen
+
+---
+
+## 9. CTA / FORMULARIO (1 imagem)
 
 ### IMG-CTA-01 — Imagem de ambiente para secao de conversao
 - **Descricao**: Ambiente acolhedor com cama retratil aberta, vista parcial, iluminacao quente e convidativa
@@ -459,10 +513,78 @@ Mostra a versatilidade — de dia e espaco de trabalho, de noite vira quarto de
 hospedes. Iluminacao natural abundante. Formato 3:2 paisagem.
 ```
 
-## PROMPTS 20-23 — Segmentos (IMG-SEG-01 a 04)
+## PROMPTS 20-25 — Tem uma WallBed para cada espaco (IMG-HORIZ + IMG-ESP)
+
+### Camas Horizontais
 
 ```
-PROMPT 20 (SEG-01 — Apartamentos Compactos):
+PROMPT 20 (HORIZ-01 — Prime Horizontal):
+Fotografia profissional de interiores de um quarto elegante com cama retratil
+HORIZONTAL aberta. A cama desce da parte inferior da parede (nao de cima para
+baixo como a vertical, mas lateralmente/horizontalmente). Acabamento em madeira
+nogueira escura, roupa de cama branca. O destaque: ACIMA da cama ha uma janela
+ampla com luz natural entrando, provando que a versao horizontal permite ter
+janelas na mesma parede. Decoracao sofisticada, tons neutros, iluminacao natural.
+Formato 3:2 paisagem, alta resolucao.
+```
+
+```
+PROMPT 21 (HORIZ-02 — Basic Horizontal):
+Fotografia de interiores de um quarto moderno com pe-direito de apenas 2,50m.
+Cama retratil horizontal branca fosca ABERTA na parte inferior da parede. O pe
+direito baixo torna impossivel uma cama vertical, mas a horizontal se encaixa
+perfeitamente. Acima da cama, prateleira com livros e objetos decorativos.
+Decoracao clean e minimalista, luminaria pendente, tons claros. Mostra que a
+horizontal e a solucao para alturas limitadas. Formato 3:2 paisagem.
+```
+
+```
+PROMPT 22 (HORIZ-03 — Economic Plus Horizontal):
+Fotografia de interiores de um studio compacto com cama retratil horizontal
+carvalho claro ABERTA. Ao lado da cama, sofa pequeno. Janela na mesma parede
+acima da cama com cortina leve. Espaco otimizado ao maximo — a horizontal
+permite usar a parede de forma mais eficiente. Decoracao jovem e pratica,
+iluminacao natural. Formato 3:2 paisagem.
+```
+
+### Modelos Especiais
+
+```
+PROMPT 23 (ESP-01 — Beliche Retratil):
+Fotografia de interiores de um quarto com cama beliche retratil, formato retrato
+4:5. DUAS camas retrateis empilhadas verticalmente na parede, ambas ABERTAS e
+prontas para uso. A cama de cima tem grade de seguranca e escada lateral de
+acesso. Roupa de cama coordenada em ambas (branca com detalhes coloridos).
+Ambiente de quarto de criancas/jovens com decoracao divertida mas organizada,
+ou quarto de hospedaria com decoracao neutra. Iluminacao suave, atmosfera
+acolhedora. Mostrar claramente o sistema duplo. Formato 4:5 retrato, alta resolucao.
+```
+
+```
+PROMPT 24 (ESP-02 — Cama Extensiva):
+Fotografia de interiores de um quarto de hospedes com cama extensiva/pull-out.
+A cama principal esta na posicao normal, e uma extensao inferior foi puxada para
+fora, formando uma cama maior — transformando de solteiro para casal. As duas
+partes da cama estao na mesma altura, niveladas, com roupa de cama coordenada
+cobrindo ambas as partes como se fosse uma cama unica. Quarto acolhedor com
+decoracao neutra, iluminacao quente. Formato 3:2 paisagem, alta resolucao.
+```
+
+```
+PROMPT 25 (ESP-03 — Cama Queen):
+Fotografia de interiores de uma suite master ampla e luxuosa com cama retratil
+tamanho QUEEN completamente aberta. A cama e grande e confortavel — deve parecer
+tao acolhedora quanto uma cama convencional queen. Roupa de cama premium branca,
+6 travesseiros, manta dobrada nos pes. Criados-mudo em cada lado com abajures
+de design. Decoracao sofisticada, tons de cinza e bege, cortinas pesadas,
+iluminacao quente. Nao deve haver NENHUMA sensacao de "cama compacta" — o foco
+e conforto total. Formato 3:2 paisagem, alta resolucao.
+```
+
+## PROMPTS 26-29 — Segmentos (IMG-SEG-01 a 04)
+
+```
+PROMPT 26 (SEG-01 — Apartamentos Compactos):
 Fotografia aerea em angulo de 45 graus de um apartamento compacto aberto (sem
 paredes, tipo planta humanizada). Studio de 35m2 mostrando todos os ambientes
 integrados: cama retratil na parede da sala, cozinha americana, area de estar com
@@ -472,7 +594,7 @@ amplo. Iluminacao uniforme tipo render arquitetonico. 16:9 paisagem.
 ```
 
 ```
-PROMPT 21 (SEG-02 — Arquitetos e Designers):
+PROMPT 27 (SEG-02 — Arquitetos e Designers):
 Fotografia de um escritorio de arquitetura. Mesa de trabalho grande com plantas
 baixas impressas, amostras de materiais (madeira, tecido, metal), um monitor
 mostrando um render 3D de um quarto com cama retratil, esquadros, escalimetro,
@@ -481,7 +603,7 @@ profissional e criativa. Iluminacao natural de janela lateral. 16:9 paisagem.
 ```
 
 ```
-PROMPT 22 (SEG-03 — Alto Padrao):
+PROMPT 28 (SEG-03 — Alto Padrao):
 Fotografia de interiores de um penthouse de luxo. Sala de estar ampla com pe
 direito duplo e janela panoramica mostrando skyline. Cama retratil com acabamento
 premium FECHADA na parede, parecendo um painel de arte/design. Decoracao assinada:
@@ -491,7 +613,7 @@ de necessidade. 16:9 paisagem.
 ```
 
 ```
-PROMPT 23 (SEG-04 — Airbnb):
+PROMPT 29 (SEG-04 — Airbnb):
 Fotografia de interiores de um espaco Airbnb premium e Instagram-worthy. Cama
 retratil ABERTA com roupa de cama branca impecavel, travesseiros extras, manta
 dobrada. Mesa lateral com amenities: toalhas enroladas, vela aromatica, cartao
@@ -500,10 +622,10 @@ de boas-vindas. Decoracao acolhedora: plantas, neon sign na parede escrevendo
 Sensacao de "quero me hospedar aqui". 16:9 paisagem.
 ```
 
-## PROMPTS 24-26 — Prova Social (IMG-TEST-01 a 03)
+## PROMPTS 30-32 — Prova Social (IMG-TEST-01 a 03)
 
 ```
-PROMPT 24 (TEST-01):
+PROMPT 30 (TEST-01):
 Retrato profissional estilo headshot de uma mulher brasileira de 35-40 anos,
 sorrindo naturalmente, cabelo escuro, em ambiente residencial desfocado ao fundo.
 Iluminacao natural suave, tom de pele quente. Enquadramento de ombros para cima.
@@ -511,21 +633,21 @@ Formato quadrado 1:1. Aspecto natural e acessivel, nao over-produced.
 ```
 
 ```
-PROMPT 25 (TEST-02):
+PROMPT 31 (TEST-02):
 Retrato profissional estilo headshot de um casal jovem brasileiro (28-32 anos),
 sorrindo, em ambiente de sala de estar desfocado ao fundo. Iluminacao natural.
 Enquadramento dos ombros para cima, ambos no quadro. Formato quadrado 1:1.
 ```
 
 ```
-PROMPT 26 (TEST-03):
+PROMPT 32 (TEST-03):
 Retrato profissional estilo headshot de um homem brasileiro de 45-50 anos,
 expressao amigavel e confiante, cabelo grisalho curto, em ambiente de escritorio
 levemente desfocado ao fundo. Iluminacao natural lateral suave.
 Formato quadrado 1:1.
 ```
 
-## PROMPT 27 — CTA / Formulario (IMG-CTA-01)
+## PROMPT 33 — CTA / Formulario (IMG-CTA-01)
 
 ```
 Fotografia de interiores atmosferica e emocional de um quarto a noite. Cama
@@ -536,7 +658,7 @@ e conforto — sensacao de "venha para casa". Foco suave, depth of field rasa.
 Tons quentes: bege, creme, dourado. Formato retrato 4:5. Alta resolucao.
 ```
 
-## PROMPT 28 — OG Image (IMG-OG-01)
+## PROMPT 34 — OG Image (IMG-OG-01)
 
 ```
 Composicao para compartilhamento em redes sociais. Lado esquerdo: um quarto
@@ -553,7 +675,7 @@ de rosa/coral. Formato panoramico 1.91:1 (1200x630px). Sem texto na imagem.
 Ao exportar, usar estes nomes:
 
 ```
-public/images/
+src/assets/images/
   hero/
     hero-desktop.webp          (IMG-HERO-01)
     hero-mobile.webp           (IMG-HERO-02)
@@ -577,6 +699,14 @@ public/images/
     basic-solteiro-jovem.webp  (IMG-AMB-04)
     eco-casal-studio.webp      (IMG-AMB-05)
     eco-solteiro-multiuso.webp (IMG-AMB-06)
+  horizontais/
+    prime-horizontal.webp      (IMG-HORIZ-01)
+    basic-horizontal.webp      (IMG-HORIZ-02)
+    eco-horizontal.webp        (IMG-HORIZ-03)
+  especiais/
+    beliche.webp               (IMG-ESP-01)
+    extensiva.webp             (IMG-ESP-02)
+    queen.webp                 (IMG-ESP-03)
   segmentos/
     seg-compactos.webp         (IMG-SEG-01)
     seg-arquitetos.webp        (IMG-SEG-02)
@@ -606,12 +736,14 @@ public/images/
 | Showcase (sequencia) | 5 | WebP 1920x1080 |
 | Produtos estudio | 6 | WebP 1:1 |
 | Produtos ambientes | 6 | WebP 3:2 |
+| Camas horizontais | 3 | WebP 3:2 |
+| Modelos especiais (beliche, extensiva, queen) | 3 | WebP 3:2 / 4:5 |
 | Segmentos | 4 | WebP 16:9 |
 | Beneficios (icones) | 4 | SVG (criados no codigo) |
 | Prova social | 3 | WebP 1:1 |
 | CTA | 1 | WebP 4:5 |
 | OG Image | 1 | JPEG |
 | Favicons/Icons | 3 | ICO + PNG |
-| **TOTAL** | **35** | — |
+| **TOTAL** | **41** | — |
 
-**Nota**: Os 4 icones de beneficios serao SVG criados direto no codigo, nao precisam ser gerados por IA. Total de imagens a GERAR: **28 imagens + 3 favicons**.
+**Nota**: Os 4 icones de beneficios serao SVG criados direto no codigo, nao precisam ser gerados por IA. Total de imagens a GERAR: **34 imagens + 3 favicons**.
