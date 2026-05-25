@@ -1,0 +1,242 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'WallBed Brasil — Camas Retrateis que Transformam seu Espaco',
+  description = 'Camas retrateis com o melhor custo-beneficio do Brasil. Ganhe espaco, durabilidade e design. Agende uma demonstracao online gratuita.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preload fonts -->
+    <link
+      rel="preload"
+      href="/fonts/Montserrat-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+
+    <!-- GSAP -->
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Reveal animations
+      function initRevealAnimations() {
+        // Fade up
+        gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        });
+
+        // Fade from left
+        gsap.utils.toArray<HTMLElement>('.reveal-left').forEach((el) => {
+          gsap.to(el, {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        });
+
+        // Fade from right
+        gsap.utils.toArray<HTMLElement>('.reveal-right').forEach((el) => {
+          gsap.to(el, {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        });
+
+        // Scale up
+        gsap.utils.toArray<HTMLElement>('.reveal-scale').forEach((el) => {
+          gsap.to(el, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        });
+
+        // Staggered children
+        gsap.utils.toArray<HTMLElement>('.stagger-children').forEach((parent) => {
+          const children = parent.querySelectorAll('.stagger-item');
+          gsap.fromTo(
+            children,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.15,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: parent,
+                start: 'top 80%',
+                once: true,
+              },
+            }
+          );
+        });
+      }
+
+      // Navbar scroll behavior
+      function initNavbar() {
+        const navbar = document.querySelector('.navbar') as HTMLElement;
+        if (!navbar) return;
+
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.scrollY;
+
+          if (currentScroll > 100) {
+            navbar.classList.add('navbar--scrolled');
+          } else {
+            navbar.classList.remove('navbar--scrolled');
+          }
+
+          lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        const toggle = document.querySelector('.navbar__toggle');
+        const menu = document.querySelector('.navbar__menu');
+
+        if (toggle && menu) {
+          toggle.addEventListener('click', () => {
+            menu.classList.toggle('navbar__menu--open');
+            toggle.classList.toggle('navbar__toggle--active');
+            document.body.style.overflow = menu.classList.contains('navbar__menu--open') ? 'hidden' : '';
+          });
+
+          // Close menu on link click
+          menu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+              menu.classList.remove('navbar__menu--open');
+              toggle.classList.remove('navbar__toggle--active');
+              document.body.style.overflow = '';
+            });
+          });
+        }
+      }
+
+      // Smooth scroll for anchor links
+      function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(
+              (anchor as HTMLAnchorElement).getAttribute('href')!
+            );
+            if (target) {
+              const navbarHeight = parseInt(
+                getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
+              );
+              const targetPosition = target.getBoundingClientRect().top + window.scrollY - navbarHeight;
+
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth',
+              });
+            }
+          });
+        });
+      }
+
+      // Counter animation for stats
+      function initCounters() {
+        gsap.utils.toArray<HTMLElement>('.counter').forEach((el) => {
+          const target = parseInt(el.dataset.target || '0');
+          const suffix = el.dataset.suffix || '';
+          const prefix = el.dataset.prefix || '';
+
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+              gsap.to(
+                { val: 0 },
+                {
+                  val: target,
+                  duration: 2,
+                  ease: 'power1.out',
+                  onUpdate: function () {
+                    el.textContent = prefix + Math.round(this.targets()[0].val) + suffix;
+                  },
+                }
+              );
+            },
+          });
+        });
+      }
+
+      // Init all on DOM ready
+      document.addEventListener('DOMContentLoaded', () => {
+        initNavbar();
+        initSmoothScroll();
+        initRevealAnimations();
+        initCounters();
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

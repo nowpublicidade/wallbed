@@ -1,0 +1,221 @@
+---
+const segments = [
+  {
+    id: 'compactos',
+    title: 'Apartamentos Compactos',
+    description: 'Transforme studios e kits em espacos versateis. De dia, sala ampla. De noite, quarto completo com todo o conforto.',
+    highlight: 'Ganhe ate 6m2 de espaco util',
+  },
+  {
+    id: 'arquitetos',
+    title: 'Arquitetos e Designers',
+    description: 'Catalogo tecnico completo, suporte para especificacao e condicoes especiais para profissionais. Seu projeto merece WallBed.',
+    highlight: 'Parceria profissional',
+  },
+  {
+    id: 'alto-padrao',
+    title: 'Imoveis de Alto Padrao',
+    description: 'Nao e questao de espaco, e questao de estilo. Acabamentos premium que se integram ao design mais exigente.',
+    highlight: 'Sofisticacao e versatilidade',
+  },
+  {
+    id: 'airbnb',
+    title: 'Airbnb e Hospedagens',
+    description: 'Maximize a capacidade do seu imovel. Uma sala que vira quarto aumenta sua ocupacao e o valor da diaria.',
+    highlight: 'Mais hospedes, mais receita',
+  },
+];
+---
+
+<section class="segments section" id="segmentos">
+  <div class="container">
+    <div class="segments__header reveal">
+      <h2 class="section__title">Para quem e a WallBed?</h2>
+      <p class="section__subtitle">
+        Solucoes para cada tipo de espaco e necessidade.
+      </p>
+    </div>
+
+    <div class="segments__tabs reveal" role="tablist">
+      {segments.map((seg, i) => (
+        <button
+          class={`segments__tab ${i === 0 ? 'segments__tab--active' : ''}`}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`panel-${seg.id}`}
+          data-tab={seg.id}
+          type="button"
+        >
+          {seg.title}
+        </button>
+      ))}
+    </div>
+
+    <div class="segments__panels">
+      {segments.map((seg, i) => (
+        <div
+          class={`segments__panel ${i === 0 ? 'segments__panel--active' : ''}`}
+          id={`panel-${seg.id}`}
+          role="tabpanel"
+          data-panel={seg.id}
+        >
+          <div class="segments__panel-image">
+            <div class="segments__placeholder"></div>
+          </div>
+          <div class="segments__panel-content">
+            <span class="segments__panel-highlight">{seg.highlight}</span>
+            <h3 class="segments__panel-title">{seg.title}</h3>
+            <p class="segments__panel-desc">{seg.description}</p>
+            <a href="#contato" class="btn btn--primary">
+              Fale com um consultor
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initSegmentTabs() {
+    const tabs = document.querySelectorAll('.segments__tab');
+    const panels = document.querySelectorAll('.segments__panel');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = (tab as HTMLElement).dataset.tab;
+
+        tabs.forEach((t) => {
+          t.classList.remove('segments__tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('segments__tab--active');
+        tab.setAttribute('aria-selected', 'true');
+
+        panels.forEach((panel) => {
+          const panelId = (panel as HTMLElement).dataset.panel;
+          panel.classList.toggle('segments__panel--active', panelId === targetId);
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initSegmentTabs);
+</script>
+
+<style>
+  .segments {
+    background: linear-gradient(180deg, var(--color-dark-700) 0%, var(--color-dark-800) 100%);
+  }
+
+  .segments__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .segments__header .section__subtitle {
+    margin-inline: auto;
+  }
+
+  .segments__tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-3xl);
+    flex-wrap: wrap;
+  }
+
+  .segments__tab {
+    padding: 0.625rem 1.25rem;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-gray-300);
+    transition: all var(--transition-base);
+  }
+
+  .segments__tab:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+  }
+
+  .segments__tab--active {
+    background: var(--gradient-brand);
+    border-color: transparent;
+    color: var(--color-white);
+  }
+
+  .segments__panels {
+    position: relative;
+  }
+
+  .segments__panel {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .segments__panel--active {
+    display: grid;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .segments__panel-image {
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .segments__placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-600);
+  }
+
+  .segments__panel-highlight {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand-start);
+    margin-bottom: var(--space-md);
+  }
+
+  .segments__panel-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    line-height: 1.2;
+  }
+
+  .segments__panel-desc {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .segments__panel {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .segments__tabs {
+      gap: var(--space-xs);
+    }
+
+    .segments__tab {
+      font-size: var(--font-size-xs);
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>

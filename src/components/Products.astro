@@ -1,0 +1,292 @@
+---
+const products = [
+  {
+    name: 'Prime Casal',
+    line: 'Prime',
+    description: 'Acabamento em madeira nobre, mecanismo premium silencioso',
+    sizes: 'Casal (1,38m)',
+    image: null, // placeholder
+  },
+  {
+    name: 'Prime Solteiro',
+    line: 'Prime',
+    description: 'A mesma sofisticacao em tamanho compacto',
+    sizes: 'Solteiro (0,88m)',
+    image: null,
+  },
+  {
+    name: 'Basic Casal',
+    line: 'Basic',
+    description: 'Design clean e moderno, custo-beneficio ideal',
+    sizes: 'Casal (1,38m)',
+    image: null,
+  },
+  {
+    name: 'Basic Solteiro',
+    line: 'Basic',
+    description: 'Minimalismo funcional para espacos inteligentes',
+    sizes: 'Solteiro (0,88m)',
+    image: null,
+  },
+  {
+    name: 'Economic Plus Casal',
+    line: 'Economic Plus',
+    description: 'Toda a praticidade com o melhor preco',
+    sizes: 'Casal (1,38m)',
+    image: null,
+  },
+  {
+    name: 'Economic Plus Solteiro',
+    line: 'Economic Plus',
+    description: 'Solucao acessivel para qualquer espaco',
+    sizes: 'Solteiro (0,88m)',
+    image: null,
+  },
+];
+---
+
+<section class="products section" id="produtos">
+  <div class="container">
+    <div class="products__header reveal">
+      <h2 class="section__title">Nossos Produtos</h2>
+      <p class="section__subtitle">
+        Tres linhas pensadas para diferentes necessidades.
+        Todas com a mesma qualidade WallBed.
+      </p>
+    </div>
+  </div>
+
+  <div class="products__carousel">
+    <div class="products__track">
+      {products.map((product) => (
+        <div class="products__card">
+          <div class="products__card-image">
+            {/* Placeholder - will be replaced with actual images */}
+            <div class="products__card-placeholder">
+              <span class="products__card-line-badge">{product.line}</span>
+            </div>
+          </div>
+          <div class="products__card-info">
+            <h3 class="products__card-name">{product.name}</h3>
+            <p class="products__card-desc">{product.description}</p>
+            <span class="products__card-size">{product.sizes}</span>
+            <a href="#contato" class="products__card-cta">
+              Saiba mais
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="products__nav container">
+      <button class="products__nav-btn products__nav-btn--prev" aria-label="Produto anterior" type="button">
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="products__progress">
+        <div class="products__progress-bar"></div>
+      </div>
+      <button class="products__nav-btn products__nav-btn--next" aria-label="Proximo produto" type="button">
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initProductCarousel() {
+    const track = document.querySelector('.products__track') as HTMLElement;
+    const prevBtn = document.querySelector('.products__nav-btn--prev');
+    const nextBtn = document.querySelector('.products__nav-btn--next');
+    const progressBar = document.querySelector('.products__progress-bar') as HTMLElement;
+
+    if (!track || !prevBtn || !nextBtn || !progressBar) return;
+
+    const updateProgress = () => {
+      const scrollWidth = track.scrollWidth - track.clientWidth;
+      const progress = scrollWidth > 0 ? (track.scrollLeft / scrollWidth) * 100 : 0;
+      progressBar.style.width = `${Math.max(progress, 10)}%`;
+    };
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: 340, behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', updateProgress);
+    updateProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', initProductCarousel);
+</script>
+
+<style>
+  .products {
+    background: var(--color-dark-900);
+    overflow: hidden;
+  }
+
+  .products__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .products__header .section__subtitle {
+    margin-inline: auto;
+  }
+
+  .products__carousel {
+    position: relative;
+  }
+
+  .products__track {
+    display: flex;
+    gap: var(--space-xl);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-md) var(--container-padding);
+    scrollbar-width: none;
+  }
+
+  .products__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .products__card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background: var(--color-dark-700);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .products__card:hover {
+    border-color: rgba(232, 70, 112, 0.2);
+    transform: translateY(-4px);
+  }
+
+  .products__card-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .products__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-600);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--space-md);
+  }
+
+  .products__card-line-badge {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: rgba(232, 70, 112, 0.15);
+    color: var(--color-brand-start);
+    border: 1px solid rgba(232, 70, 112, 0.3);
+  }
+
+  .products__card-info {
+    padding: var(--space-lg);
+  }
+
+  .products__card-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .products__card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    margin-bottom: var(--space-sm);
+    line-height: 1.5;
+  }
+
+  .products__card-size {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-md);
+  }
+
+  .products__card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-brand-start);
+    transition: gap var(--transition-fast);
+  }
+
+  .products__card-cta:hover {
+    gap: var(--space-sm);
+  }
+
+  /* Navigation */
+  .products__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  .products__nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    transition: all var(--transition-fast);
+  }
+
+  .products__nav-btn:hover {
+    border-color: var(--color-white);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .products__progress {
+    width: 120px;
+    height: 2px;
+    background: var(--color-dark-500);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .products__progress-bar {
+    height: 100%;
+    width: 10%;
+    background: var(--gradient-brand-horizontal);
+    border-radius: 1px;
+    transition: width var(--transition-fast);
+  }
+
+  @media (max-width: 640px) {
+    .products__card {
+      flex: 0 0 260px;
+    }
+  }
+</style>

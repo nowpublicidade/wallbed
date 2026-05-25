@@ -1,0 +1,259 @@
+---
+// Showcase section - scroll-driven animation of bed opening
+const steps = [
+  { label: 'De dia, um escritorio elegante', stat: null },
+  { label: 'O painel comeca a se transformar', stat: null },
+  { label: 'O mecanismo silencioso entra em acao', stat: 'Abertura em 5 segundos' },
+  { label: 'Seu colchao ja esta quase pronto', stat: 'Sem nenhum esforco' },
+  { label: 'De noite, seu quarto de hotel', stat: 'Conforto garantido' },
+];
+
+const stats = [
+  { value: 15, suffix: '+', label: 'Modelos disponiveis', prefix: '' },
+  { value: 5000, suffix: '+', label: 'Camas vendidas', prefix: '' },
+  { value: 5, suffix: ' anos', label: 'Garantia', prefix: '' },
+];
+---
+
+<section class="showcase" id="showcase">
+  <div class="showcase__sticky">
+    <div class="showcase__image-container">
+      <!-- Placeholder for scroll-driven images -->
+      <div class="showcase__image-placeholder">
+        <div class="showcase__image-frame">
+          <div class="showcase__step-indicator">
+            {steps.map((_, i) => (
+              <div class={`showcase__dot ${i === 0 ? 'showcase__dot--active' : ''}`} data-step={i}></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="showcase__text-container">
+      {steps.map((step, i) => (
+        <div class={`showcase__step ${i === 0 ? 'showcase__step--active' : ''}`} data-step={i}>
+          <p class="showcase__step-label">{step.label}</p>
+          {step.stat && <p class="showcase__step-stat">{step.stat}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="showcase__stats container">
+    <div class="stagger-children showcase__stats-grid">
+      {stats.map((stat) => (
+        <div class="showcase__stat stagger-item">
+          <span
+            class="showcase__stat-value counter"
+            data-target={stat.value}
+            data-suffix={stat.suffix}
+            data-prefix={stat.prefix}
+          >
+            0
+          </span>
+          <span class="showcase__stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initShowcase() {
+    const showcase = document.querySelector('.showcase');
+    if (!showcase) return;
+
+    const steps = document.querySelectorAll('.showcase__step');
+    const dots = document.querySelectorAll('.showcase__dot');
+    const totalSteps = steps.length;
+
+    ScrollTrigger.create({
+      trigger: '.showcase',
+      start: 'top top',
+      end: `+=${totalSteps * 100}%`,
+      pin: '.showcase__sticky',
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const currentStep = Math.min(
+          Math.floor(progress * totalSteps),
+          totalSteps - 1
+        );
+
+        steps.forEach((step, i) => {
+          step.classList.toggle('showcase__step--active', i === currentStep);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('showcase__dot--active', i === currentStep);
+        });
+      },
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initShowcase);
+</script>
+
+<style>
+  .showcase {
+    background: var(--color-dark-900);
+    min-height: 500vh;
+    position: relative;
+  }
+
+  .showcase__sticky {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .showcase__image-container {
+    width: 60%;
+    max-width: 700px;
+    aspect-ratio: 16/9;
+    position: relative;
+  }
+
+  .showcase__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-700);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .showcase__image-frame {
+    text-align: center;
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+  }
+
+  .showcase__step-indicator {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-md);
+  }
+
+  .showcase__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-dark-500);
+    transition: all var(--transition-base);
+  }
+
+  .showcase__dot--active {
+    background: var(--color-brand-start);
+    box-shadow: 0 0 8px rgba(232, 70, 112, 0.5);
+    transform: scale(1.3);
+  }
+
+  .showcase__text-container {
+    position: absolute;
+    right: var(--container-padding);
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 300px;
+  }
+
+  .showcase__step {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-smooth);
+  }
+
+  .showcase__step--active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .showcase__step-label {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+  }
+
+  .showcase__step-stat {
+    font-size: var(--font-size-base);
+    color: var(--color-brand-start);
+    font-weight: 500;
+  }
+
+  /* Stats */
+  .showcase__stats {
+    padding-block: var(--space-section);
+  }
+
+  .showcase__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+
+  .showcase__stat-value {
+    display: block;
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    background: var(--gradient-brand-horizontal);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--space-sm);
+  }
+
+  .showcase__stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .showcase__image-container {
+      width: 90%;
+    }
+
+    .showcase__text-container {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+      max-width: 100%;
+      text-align: center;
+      padding-inline: var(--container-padding);
+      margin-top: var(--space-xl);
+    }
+
+    .showcase__step {
+      position: relative;
+    }
+
+    .showcase__stats-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .showcase__stat-value {
+      font-size: var(--font-size-4xl);
+    }
+  }
+</style>

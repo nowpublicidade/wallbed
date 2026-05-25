@@ -1,0 +1,149 @@
+---
+const faqs = [
+  {
+    question: 'Como funciona o mecanismo da cama retratil?',
+    answer: 'A WallBed utiliza um sistema de pistoes a gas que permite abrir e fechar a cama com apenas um toque, sem esforco. O mecanismo e silencioso e nao precisa de energia eletrica.',
+  },
+  {
+    question: 'Qual o prazo de entrega?',
+    answer: 'O prazo varia de 15 a 45 dias uteis dependendo do modelo e da sua regiao. Entregamos em todo o Brasil com suporte de instalacao.',
+  },
+  {
+    question: 'Precisa de obra para instalar?',
+    answer: 'Nao. A instalacao e feita por nossa equipe tecnica e nao exige obra. O movel e fixado na parede com suportes especiais. O processo leva em media 2 a 4 horas.',
+  },
+  {
+    question: 'Quais os tamanhos disponiveis?',
+    answer: 'Temos modelos solteiro (0,88m), casal (1,38m) e queen. Alem das versoes verticais e horizontais, oferecemos beliche retratil e cama extensiva.',
+  },
+  {
+    question: 'Tem garantia?',
+    answer: 'Sim. Todos os modelos possuem garantia de fabrica. O mecanismo e testado para mais de 20.000 ciclos de abertura e fechamento.',
+  },
+  {
+    question: 'Posso usar qualquer colchao?',
+    answer: 'Sim, a WallBed e compativel com colchoes de mola, espuma e latex. Recomendamos colchoes de ate 20cm de altura para melhor funcionamento do mecanismo.',
+  },
+];
+---
+
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="faq__header reveal">
+      <h2 class="section__title">Perguntas Frequentes</h2>
+      <p class="section__subtitle">
+        Tudo que voce precisa saber sobre as camas retrateis WallBed.
+      </p>
+    </div>
+
+    <div class="faq__list stagger-children">
+      {faqs.map((faq, i) => (
+        <details class="faq__item stagger-item" data-faq={i}>
+          <summary class="faq__question">
+            <span>{faq.question}</span>
+            <svg class="faq__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+            </svg>
+          </summary>
+          <div class="faq__answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initFAQ() {
+    const items = document.querySelectorAll('.faq__item');
+
+    items.forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if ((item as HTMLDetailsElement).open) {
+          // Close other items
+          items.forEach((other) => {
+            if (other !== item && (other as HTMLDetailsElement).open) {
+              (other as HTMLDetailsElement).open = false;
+            }
+          });
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFAQ);
+</script>
+
+<style>
+  .faq {
+    background: var(--color-dark-900);
+  }
+
+  .faq__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .faq__header .section__subtitle {
+    margin-inline: auto;
+  }
+
+  .faq__list {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    list-style: none;
+    transition: color var(--transition-fast);
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question:hover {
+    color: var(--color-brand-start);
+  }
+
+  .faq__icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-base);
+    color: var(--color-gray-400);
+  }
+
+  .faq__item[open] .faq__icon {
+    transform: rotate(45deg);
+    color: var(--color-brand-start);
+  }
+
+  .faq__answer {
+    padding-bottom: var(--space-xl);
+  }
+
+  .faq__answer p {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  @media (max-width: 640px) {
+    .faq__question {
+      font-size: var(--font-size-base);
+    }
+  }
+</style>

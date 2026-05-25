@@ -1,0 +1,127 @@
+---
+const benefits = [
+  {
+    icon: 'space',
+    title: 'Espaco inteligente',
+    description: 'Ganhe ate 6m2 no seu ambiente. De dia, sala ou escritorio. De noite, quarto completo.',
+  },
+  {
+    icon: 'price',
+    title: 'Preco justo',
+    description: 'Melhor custo-beneficio do mercado brasileiro em camas retrateis.',
+  },
+  {
+    icon: 'durability',
+    title: 'Durabilidade',
+    description: 'Mecanismo testado para mais de 20.000 ciclos de abertura e fechamento.',
+  },
+  {
+    icon: 'delivery',
+    title: 'Entrega nacional',
+    description: 'Enviamos para todo o Brasil com suporte completo de instalacao.',
+  },
+];
+
+const iconPaths: Record<string, string> = {
+  space: 'M4 4h16v16H4V4zm4 4v8h8V8H8z M2 2v20h20V2H2z',
+  price: 'M12 2v20M8 6h5a3 3 0 0 1 0 6H8m0 0h6a3 3 0 0 1 0 6H8',
+  durability: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
+  delivery: 'M1 6h15v10H1V6zm15 2h4l3 3v5h-7V8zM5.5 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm13 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z',
+};
+---
+
+<section class="benefits section" id="beneficios">
+  <div class="container">
+    <div class="benefits__header reveal">
+      <h2 class="section__title">Por que escolher a WallBed?</h2>
+      <p class="section__subtitle">
+        Tecnologia, qualidade e preco que fazem a diferenca no seu dia a dia.
+      </p>
+    </div>
+
+    <div class="benefits__grid stagger-children">
+      {benefits.map((benefit) => (
+        <div class="benefits__card stagger-item">
+          <div class="benefits__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={iconPaths[benefit.icon]} />
+            </svg>
+          </div>
+          <h3 class="benefits__card-title">{benefit.title}</h3>
+          <p class="benefits__card-text">{benefit.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits {
+    background: var(--color-dark-800);
+  }
+
+  .benefits__header {
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .benefits__header .section__subtitle {
+    margin-inline: auto;
+  }
+
+  .benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .benefits__card {
+    background: var(--color-dark-700);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    transition: all var(--transition-base);
+  }
+
+  .benefits__card:hover {
+    border-color: rgba(232, 70, 112, 0.2);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .benefits__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--space-lg);
+    color: var(--color-brand-start);
+  }
+
+  .benefits__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .benefits__card-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefits__card-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .benefits__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

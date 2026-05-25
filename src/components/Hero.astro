@@ -1,0 +1,199 @@
+---
+// Hero section - full screen with animated headline
+---
+
+<section class="hero" id="inicio">
+  <div class="hero__bg">
+    <!-- Placeholder: will be replaced with actual hero image/video -->
+    <div class="hero__bg-overlay"></div>
+  </div>
+
+  <div class="hero__content container">
+    <h1 class="hero__title">
+      <span class="hero__title-line">Seu espaco.</span>
+      <span class="hero__title-line">Reinventado.</span>
+    </h1>
+
+    <p class="hero__subtitle">
+      Camas retrateis que desaparecem quando voce precisa de espaco
+      e aparecem quando voce precisa de conforto.
+    </p>
+
+    <div class="hero__actions">
+      <a href="#contato" class="btn btn--primary">
+        Agendar Demonstracao
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#produtos" class="btn btn--outline">
+        Ver Produtos
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__scroll-indicator" aria-hidden="true">
+    <span class="hero__scroll-text">Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  function initHeroAnimation() {
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    tl.fromTo(
+      '.hero__title-line',
+      { opacity: 0, y: 60, rotateX: -15 },
+      {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out',
+      }
+    )
+      .fromTo(
+        '.hero__subtitle',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+        '-=0.4'
+      )
+      .fromTo(
+        '.hero__actions',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        '-=0.3'
+      )
+      .fromTo(
+        '.hero__scroll-indicator',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6 },
+        '-=0.2'
+      );
+  }
+
+  document.addEventListener('DOMContentLoaded', initHeroAnimation);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--color-dark-900);
+  }
+
+  .hero__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: var(--z-base);
+    padding-top: var(--navbar-height);
+    max-width: 800px;
+  }
+
+  .hero__title {
+    font-size: var(--font-size-hero);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__title-line {
+    display: block;
+    opacity: 0;
+  }
+
+  .hero__title-line:last-child {
+    background: var(--gradient-brand-horizontal);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(var(--font-size-base), 2.5vw, var(--font-size-xl));
+    font-weight: 400;
+    color: var(--color-gray-200);
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: var(--space-2xl);
+    opacity: 0;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    opacity: 0;
+  }
+
+  .hero__scroll-indicator {
+    position: absolute;
+    bottom: var(--space-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    opacity: 0;
+  }
+
+  .hero__scroll-text {
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gray-300);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-gray-300), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @media (max-width: 768px) {
+    .hero__content {
+      padding-top: calc(var(--navbar-height) + var(--space-2xl));
+    }
+
+    .hero__actions {
+      flex-direction: column;
+    }
+
+    .hero__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

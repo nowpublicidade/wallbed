@@ -1,0 +1,243 @@
+---
+// "Tem uma WallBed para cada espaco" section
+const horizontals = [
+  { name: 'Prime Horizontal', description: 'Sofisticacao na versao que permite janelas e quadros acima', sizes: 'Casal e Solteiro' },
+  { name: 'Basic Horizontal', description: 'Design clean ideal para pe-direito mais baixo', sizes: 'Casal e Solteiro' },
+  { name: 'Economic Plus Horizontal', description: 'Praticidade horizontal com o melhor custo-beneficio', sizes: 'Casal e Solteiro' },
+];
+
+const specials = [
+  {
+    name: 'Beliche Retratil',
+    tagline: 'Duas camas, zero espaco ocupado',
+    description: 'Duas camas empilhadas que desaparecem na parede. Ideal para quartos de criancas, hospedagens e republicas.',
+  },
+  {
+    name: 'Cama Extensiva',
+    tagline: 'Cresce quando voce precisa',
+    description: 'De solteiro para casal em segundos. Perfeita para visitas e quartos de hospedes.',
+  },
+  {
+    name: 'Cama Queen',
+    tagline: 'Conforto sem concessoes',
+    description: 'Para quem nao abre mao do tamanho. Todo o conforto de uma queen, com a versatilidade de sumir na parede.',
+  },
+];
+---
+
+<section class="more-models section" id="modelos">
+  <div class="container">
+    <div class="more-models__header reveal">
+      <h2 class="section__title">Tem uma WallBed para cada espaco</h2>
+      <p class="section__subtitle">
+        Alem das verticais, temos modelos horizontais e especiais
+        para cada tipo de projeto.
+      </p>
+    </div>
+
+    <!-- Horizontal beds -->
+    <div class="more-models__block">
+      <h3 class="more-models__block-title reveal">
+        Toda a praticidade, na horizontal
+      </h3>
+      <p class="more-models__block-desc reveal">
+        A versao horizontal ocupa menos altura na parede, ideal para ambientes
+        com janelas ou pe-direito mais baixo.
+      </p>
+
+      <div class="more-models__horizontal-grid stagger-children">
+        {horizontals.map((item) => (
+          <div class="more-models__h-card stagger-item">
+            <div class="more-models__h-card-image">
+              <div class="more-models__placeholder"></div>
+            </div>
+            <div class="more-models__h-card-info">
+              <h4 class="more-models__h-card-name">{item.name}</h4>
+              <p class="more-models__h-card-desc">{item.description}</p>
+              <span class="more-models__h-card-sizes">{item.sizes}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Special models -->
+    <div class="more-models__block">
+      <h3 class="more-models__block-title reveal">Modelos Especiais</h3>
+
+      <div class="more-models__special-grid stagger-children">
+        {specials.map((item) => (
+          <div class="more-models__s-card stagger-item">
+            <div class="more-models__s-card-image">
+              <div class="more-models__placeholder"></div>
+            </div>
+            <div class="more-models__s-card-content">
+              <span class="more-models__s-card-tagline">{item.tagline}</span>
+              <h4 class="more-models__s-card-name">{item.name}</h4>
+              <p class="more-models__s-card-desc">{item.description}</p>
+              <a href="#contato" class="products__card-cta">
+                Saiba mais
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .more-models {
+    background: linear-gradient(180deg, var(--color-dark-900) 0%, var(--color-dark-700) 100%);
+  }
+
+  .more-models__header {
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .more-models__header .section__subtitle {
+    margin-inline: auto;
+  }
+
+  .more-models__block {
+    margin-bottom: var(--space-4xl);
+  }
+
+  .more-models__block:last-child {
+    margin-bottom: 0;
+  }
+
+  .more-models__block-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .more-models__block-desc {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-300);
+    max-width: 500px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .more-models__placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-600);
+    border-radius: var(--radius-md);
+  }
+
+  /* Horizontal grid */
+  .more-models__horizontal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .more-models__h-card {
+    background: var(--color-dark-800);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .more-models__h-card:hover {
+    border-color: rgba(232, 70, 112, 0.2);
+    transform: translateY(-4px);
+  }
+
+  .more-models__h-card-image {
+    aspect-ratio: 3/2;
+  }
+
+  .more-models__h-card-info {
+    padding: var(--space-lg);
+  }
+
+  .more-models__h-card-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .more-models__h-card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    margin-bottom: var(--space-sm);
+  }
+
+  .more-models__h-card-sizes {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+  }
+
+  /* Special grid */
+  .more-models__special-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .more-models__s-card {
+    background: var(--color-dark-800);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .more-models__s-card:hover {
+    border-color: rgba(232, 70, 112, 0.2);
+    transform: translateY(-4px);
+  }
+
+  .more-models__s-card-image {
+    aspect-ratio: 3/2;
+  }
+
+  .more-models__s-card-content {
+    padding: var(--space-lg);
+  }
+
+  .more-models__s-card-tagline {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand-start);
+    margin-bottom: var(--space-xs);
+  }
+
+  .more-models__s-card-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .more-models__s-card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  @media (max-width: 1024px) {
+    .more-models__horizontal-grid,
+    .more-models__special-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .more-models__horizontal-grid,
+    .more-models__special-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

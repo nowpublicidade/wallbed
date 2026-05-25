@@ -1,0 +1,190 @@
+---
+const testimonials = [
+  {
+    quote: 'Transformou completamente meu apartamento de 35m2. Agora tenho sala de dia e quarto de noite, sem abrir mao de conforto.',
+    name: 'Mariana Santos',
+    city: 'Sao Paulo, SP',
+    image: null,
+  },
+  {
+    quote: 'Ja instalamos WallBed em mais de 20 projetos. A qualidade do mecanismo e o suporte tecnico sao impecaveis.',
+    name: 'Rafael e Ana Costa',
+    city: 'Rio de Janeiro, RJ',
+    image: null,
+  },
+  {
+    quote: 'Meu Airbnb passou a receber o dobro de hospedes. O investimento se pagou em 4 meses.',
+    name: 'Carlos Mendes',
+    city: 'Florianopolis, SC',
+    image: null,
+  },
+];
+
+const impactStats = [
+  { value: '4.9', label: 'Avaliacao media' },
+  { value: '27', label: 'Estados atendidos' },
+  { value: '98%', label: 'Clientes satisfeitos' },
+];
+---
+
+<section class="testimonials section">
+  <div class="container">
+    <div class="testimonials__header reveal">
+      <h2 class="section__title">Quem usa, recomenda</h2>
+    </div>
+
+    <div class="testimonials__carousel stagger-children">
+      {testimonials.map((t) => (
+        <div class="testimonials__card stagger-item">
+          <div class="testimonials__quote-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11 7H7a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H6a1 1 0 0 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4H6a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 0 0 0-2zm10 0h-4a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a1 1 0 0 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4h-1a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 0 0 0-2z"/>
+            </svg>
+          </div>
+          <blockquote class="testimonials__text">{t.quote}</blockquote>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar">
+              {/* Placeholder for avatar */}
+              <div class="testimonials__avatar-placeholder"></div>
+            </div>
+            <div>
+              <cite class="testimonials__name">{t.name}</cite>
+              <span class="testimonials__city">{t.city}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Impact stats -->
+    <div class="testimonials__impact stagger-children">
+      {impactStats.map((stat) => (
+        <div class="testimonials__impact-item stagger-item">
+          <span class="testimonials__impact-value">{stat.value}</span>
+          <span class="testimonials__impact-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: var(--color-dark-900);
+  }
+
+  .testimonials__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .testimonials__carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-4xl);
+  }
+
+  .testimonials__card {
+    background: var(--color-dark-700);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonials__quote-icon {
+    color: var(--color-brand-start);
+    opacity: 0.4;
+    margin-bottom: var(--space-md);
+  }
+
+  .testimonials__text {
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-gray-200);
+    flex-grow: 1;
+    margin-bottom: var(--space-xl);
+    font-style: normal;
+  }
+
+  .testimonials__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .testimonials__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .testimonials__avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-500);
+  }
+
+  .testimonials__name {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .testimonials__city {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+  }
+
+  /* Impact */
+  .testimonials__impact {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4xl);
+    padding-top: var(--space-3xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .testimonials__impact-item {
+    text-align: center;
+  }
+
+  .testimonials__impact-value {
+    display: block;
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    background: var(--gradient-brand-horizontal);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .testimonials__impact-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+  }
+
+  @media (max-width: 1024px) {
+    .testimonials__carousel {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .testimonials__impact {
+      flex-direction: column;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+  }
+</style>
