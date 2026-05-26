@@ -1,11 +1,27 @@
 ---
-// Showcase section - scroll-driven animation of bed opening
+import { Image } from 'astro:assets';
+import show01 from '../assets/images/showcase/IMG-SHOW-01.png';
+import show02 from '../assets/images/showcase/IMG-SHOW-02.png';
+import show03 from '../assets/images/showcase/IMG-SHOW-03.png';
+import show04 from '../assets/images/showcase/IMG-SHOW-04.png';
+import show05 from '../assets/images/showcase/IMG-SHOW-05.png';
+
+const showcaseImages = [show01, show02, show03, show04, show05];
+
 const steps = [
-  { label: 'De dia, um escritorio elegante', stat: null },
-  { label: 'O painel comeca a se transformar', stat: null },
-  { label: 'O mecanismo silencioso entra em acao', stat: 'Abertura em 5 segundos' },
-  { label: 'Seu colchao ja esta quase pronto', stat: 'Sem nenhum esforco' },
-  { label: 'De noite, seu quarto de hotel', stat: 'Conforto garantido' },
+  { label: 'De dia, um escritorio elegante', stat: null, number: '01' },
+  { label: 'O painel comeca a se transformar', stat: null, number: '02' },
+  { label: 'O mecanismo silencioso entra em acao', stat: 'Abertura em 5 segundos', number: '03' },
+  { label: 'Seu colchao ja esta quase pronto', stat: 'Sem nenhum esforco', number: '04' },
+  { label: 'De noite, seu quarto de hotel', stat: 'Conforto garantido', number: '05' },
+];
+
+const imageAlts = [
+  'Cama retratil WallBed totalmente fechada, parecendo um painel na parede',
+  'Cama retratil comecando a abrir, painel inclinado',
+  'Cama retratil a 50 porcento aberta, mecanismo visivel',
+  'Cama retratil quase totalmente aberta, colchao aparecendo',
+  'Cama retratil completamente aberta e pronta para uso',
 ];
 
 const stats = [
@@ -17,26 +33,53 @@ const stats = [
 
 <section class="showcase" id="showcase">
   <div class="showcase__sticky">
-    <div class="showcase__image-container">
-      <!-- Placeholder for scroll-driven images -->
-      <div class="showcase__image-placeholder">
-        <div class="showcase__image-frame">
-          <div class="showcase__step-indicator">
-            {steps.map((_, i) => (
-              <div class={`showcase__dot ${i === 0 ? 'showcase__dot--active' : ''}`} data-step={i}></div>
-            ))}
-          </div>
+    <!-- Background image layer -->
+    <div class="showcase__image-layer">
+      {showcaseImages.map((img, i) => (
+        <div class={`showcase__image-wrapper ${i === 0 ? 'showcase__image-wrapper--active' : ''}`} data-step={i}>
+          <Image
+            src={img}
+            alt={imageAlts[i]}
+            class="showcase__image"
+            width={1920}
+            quality={85}
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
         </div>
-      </div>
+      ))}
     </div>
 
-    <div class="showcase__text-container">
+    <!-- Overlay gradient for text readability -->
+    <div class="showcase__overlay"></div>
+
+    <!-- Large dramatic text layer -->
+    <div class="showcase__text-layer">
       {steps.map((step, i) => (
         <div class={`showcase__step ${i === 0 ? 'showcase__step--active' : ''}`} data-step={i}>
-          <p class="showcase__step-label">{step.label}</p>
+          <span class="showcase__step-number">{step.number}</span>
+          <h3 class="showcase__step-label">{step.label}</h3>
           {step.stat && <p class="showcase__step-stat">{step.stat}</p>}
         </div>
       ))}
+    </div>
+
+    <!-- Progress bar at bottom -->
+    <div class="showcase__progress">
+      <div class="showcase__progress-track">
+        <div class="showcase__progress-fill"></div>
+      </div>
+      <div class="showcase__progress-steps">
+        {steps.map((_, i) => (
+          <button
+            class={`showcase__progress-dot ${i === 0 ? 'showcase__progress-dot--active' : ''}`}
+            data-step={i}
+            type="button"
+            aria-label={`Passo ${i + 1}`}
+          >
+            <span class="showcase__progress-dot-inner"></span>
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 
@@ -70,29 +113,172 @@ const stats = [
     const showcase = document.querySelector('.showcase');
     if (!showcase) return;
 
+    const imageWrappers = document.querySelectorAll('.showcase__image-wrapper');
     const steps = document.querySelectorAll('.showcase__step');
-    const dots = document.querySelectorAll('.showcase__dot');
+    const dots = document.querySelectorAll('.showcase__progress-dot');
+    const progressFill = document.querySelector('.showcase__progress-fill') as HTMLElement;
+    const imageLayer = document.querySelector('.showcase__image-layer') as HTMLElement;
+    const overlay = document.querySelector('.showcase__overlay') as HTMLElement;
     const totalSteps = steps.length;
 
+    // Set initial scale for image layer
+    gsap.set(imageLayer, { scale: 0.65, borderRadius: '24px' });
+    gsap.set(overlay, { opacity: 0.5 });
+
+    // Main scroll-driven timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.showcase',
+        start: 'top top',
+        end: `+=${totalSteps * 120}%`,
+        pin: '.showcase__sticky',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          // Update progress bar
+          if (progressFill) {
+            progressFill.style.width = `${self.progress * 100}%`;
+          }
+        },
+      },
+    });
+
+    // Phase 1: Scale image up from 0.65 to 1.0 (first 15% of scroll)
+    tl.to(imageLayer, {
+      scale: 1,
+      borderRadius: '0px',
+      duration: 0.15,
+      ease: 'power2.out',
+    }, 0);
+
+    tl.to(overlay, {
+      opacity: 0.3,
+      duration: 0.15,
+      ease: 'power2.out',
+    }, 0);
+
+    // Calculate step duration (remaining 85% / totalSteps)
+    const stepStart = 0.15;
+    const stepDuration = (1 - stepStart) / totalSteps;
+
+    // Animate through each step
+    for (let i = 0; i < totalSteps; i++) {
+      const start = stepStart + i * stepDuration;
+      const step = steps[i];
+      const imageWrapper = imageWrappers[i];
+      const dot = dots[i];
+
+      if (i === 0) {
+        // First step - text enters with the scale-up
+        tl.fromTo(step, {
+          opacity: 0,
+          y: 60,
+          scale: 1.3,
+        }, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.1,
+          ease: 'power3.out',
+        }, 0.05);
+      }
+
+      if (i > 0) {
+        // Transition: fade out current step text, fade in new step text + image
+        const transitionStart = start - stepDuration * 0.15;
+
+        // Fade out previous step text
+        tl.to(steps[i - 1], {
+          opacity: 0,
+          y: -40,
+          scale: 0.9,
+          duration: stepDuration * 0.3,
+          ease: 'power2.in',
+        }, transitionStart);
+
+        // Crossfade images
+        tl.to(imageWrappers[i - 1], {
+          opacity: 0,
+          scale: 1.08,
+          duration: stepDuration * 0.4,
+          ease: 'power2.inOut',
+        }, transitionStart);
+
+        tl.fromTo(imageWrapper, {
+          opacity: 0,
+          scale: 0.95,
+        }, {
+          opacity: 1,
+          scale: 1,
+          duration: stepDuration * 0.4,
+          ease: 'power2.inOut',
+        }, transitionStart + stepDuration * 0.1);
+
+        // Fade in new step text
+        tl.fromTo(step, {
+          opacity: 0,
+          y: 60,
+          scale: 1.2,
+        }, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: stepDuration * 0.35,
+          ease: 'power3.out',
+        }, transitionStart + stepDuration * 0.15);
+
+        // Animate dots
+        if (dots[i - 1]) {
+          tl.to(dots[i - 1], {
+            scale: 1,
+            duration: stepDuration * 0.2,
+          }, transitionStart);
+        }
+      }
+
+      // Dot activation
+      if (dot) {
+        const dotStart = i === 0 ? 0 : start;
+        tl.to(dot, {
+          scale: 1.4,
+          duration: stepDuration * 0.2,
+        }, dotStart);
+        dot.classList.add('showcase__progress-dot--active');
+      }
+
+      // Subtle image zoom during hold (parallax feel)
+      if (i < totalSteps - 1) {
+        tl.to(imageWrapper, {
+          scale: 1.03,
+          duration: stepDuration * 0.5,
+          ease: 'none',
+        }, start + stepDuration * 0.3);
+      }
+    }
+
+    // Fade out last step at the very end
+    tl.to(steps[totalSteps - 1], {
+      opacity: 0,
+      y: -30,
+      duration: 0.05,
+      ease: 'power2.in',
+    }, 0.97);
+
+    // Active dot tracking via ScrollTrigger update
     ScrollTrigger.create({
       trigger: '.showcase',
       start: 'top top',
-      end: `+=${totalSteps * 100}%`,
-      pin: '.showcase__sticky',
-      scrub: 1,
+      end: `+=${totalSteps * 120}%`,
+      scrub: true,
       onUpdate: (self) => {
         const progress = self.progress;
+        const adjustedProgress = Math.max(0, (progress - stepStart) / (1 - stepStart));
         const currentStep = Math.min(
-          Math.floor(progress * totalSteps),
+          Math.floor(adjustedProgress * totalSteps),
           totalSteps - 1
         );
 
-        steps.forEach((step, i) => {
-          step.classList.toggle('showcase__step--active', i === currentStep);
-        });
-
         dots.forEach((dot, i) => {
-          dot.classList.toggle('showcase__dot--active', i === currentStep);
+          dot.classList.toggle('showcase__progress-dot--active', i <= currentStep);
         });
       },
     });
@@ -104,98 +290,175 @@ const stats = [
 <style>
   .showcase {
     background: var(--color-dark-900);
-    min-height: 500vh;
+    min-height: 600vh;
     position: relative;
+    scroll-snap-align: start;
   }
 
   .showcase__sticky {
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-  }
-
-  .showcase__image-container {
-    width: 60%;
-    max-width: 700px;
-    aspect-ratio: 16/9;
-    position: relative;
-  }
-
-  .showcase__image-placeholder {
-    width: 100%;
-    height: 100%;
-    background: var(--color-dark-700);
-    border-radius: var(--radius-lg);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .showcase__image-frame {
-    text-align: center;
-    color: var(--color-gray-400);
-    font-size: var(--font-size-sm);
-  }
-
-  .showcase__step-indicator {
-    display: flex;
-    gap: var(--space-sm);
-    justify-content: center;
-    margin-top: var(--space-md);
-  }
-
-  .showcase__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-dark-500);
-    transition: all var(--transition-base);
-  }
-
-  .showcase__dot--active {
-    background: var(--color-brand-start);
-    box-shadow: 0 0 8px rgba(232, 70, 112, 0.5);
-    transform: scale(1.3);
-  }
-
-  .showcase__text-container {
+  /* ---- Image layer ---- */
+  .showcase__image-layer {
     position: absolute;
-    right: var(--container-padding);
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: 300px;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .showcase__image-wrapper {
+    position: absolute;
+    inset: 0;
+    will-change: transform, opacity;
+  }
+
+  .showcase__image-wrapper:not(:first-child) {
+    opacity: 0;
+  }
+
+  .showcase__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* ---- Overlay ---- */
+  .showcase__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 12, 0.7) 0%,
+      rgba(10, 10, 12, 0.2) 40%,
+      rgba(10, 10, 12, 0.15) 60%,
+      rgba(10, 10, 12, 0.8) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* ---- Text layer ---- */
+  .showcase__text-layer {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 900px;
+    padding-inline: var(--container-padding);
+    text-align: center;
+    pointer-events: none;
   }
 
   .showcase__step {
     position: absolute;
-    top: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding-inline: var(--container-padding);
     opacity: 0;
-    transform: translateY(20px);
-    transition: all var(--transition-smooth);
+    will-change: transform, opacity;
   }
 
-  .showcase__step--active {
+  .showcase__step:first-child {
     opacity: 1;
-    transform: translateY(0);
+  }
+
+  .showcase__step-number {
+    display: inline-block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-start);
+    margin-bottom: var(--space-md);
+    opacity: 0.8;
   }
 
   .showcase__step-label {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: var(--space-sm);
+    font-size: clamp(2rem, 5.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
   }
 
   .showcase__step-stat {
-    font-size: var(--font-size-base);
-    color: var(--color-brand-start);
+    margin-top: var(--space-lg);
+    font-size: var(--font-size-lg);
     font-weight: 500;
+    color: var(--color-brand-start);
+    text-shadow: 0 1px 20px rgba(0, 0, 0, 0.4);
   }
 
-  /* Stats */
+  /* ---- Progress bar ---- */
+  .showcase__progress {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .showcase__progress-track {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .showcase__progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-brand-horizontal);
+    border-radius: 1px;
+    transition: width 0.1s linear;
+  }
+
+  .showcase__progress-steps {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .showcase__progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .showcase__progress-dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showcase__progress-dot--active .showcase__progress-dot-inner {
+    background: var(--color-brand-start);
+    box-shadow: 0 0 12px rgba(232, 70, 112, 0.6);
+    transform: scale(1.1);
+  }
+
+  /* ---- Stats ---- */
   .showcase__stats {
     padding-block: var(--space-section);
   }
@@ -227,24 +490,18 @@ const stats = [
     font-weight: 500;
   }
 
+  /* ---- Mobile ---- */
   @media (max-width: 768px) {
-    .showcase__image-container {
-      width: 90%;
+    .showcase__step-label {
+      font-size: clamp(1.5rem, 7vw, 2.5rem);
     }
 
-    .showcase__text-container {
-      position: relative;
-      right: auto;
-      top: auto;
-      transform: none;
-      max-width: 100%;
-      text-align: center;
-      padding-inline: var(--container-padding);
-      margin-top: var(--space-xl);
+    .showcase__step-stat {
+      font-size: var(--font-size-base);
     }
 
-    .showcase__step {
-      position: relative;
+    .showcase__progress-track {
+      width: 140px;
     }
 
     .showcase__stats-grid {

@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import ctaImage from '../assets/images/cta/IMG-CTA-01.png';
+
 // CTA + Contact form section
 const interestOptions = [
   { value: '', label: 'Selecione seu interesse' },
@@ -10,6 +13,17 @@ const interestOptions = [
 ---
 
 <section class="contact section" id="contato">
+  <div class="contact__bg">
+    <Image
+      src={ctaImage}
+      alt=""
+      width={1200}
+      quality={70}
+      class="contact__bg-image"
+    />
+    <div class="contact__bg-overlay"></div>
+  </div>
+
   <div class="container">
     <div class="contact__grid">
       <div class="contact__info reveal-left">
@@ -180,12 +194,43 @@ const interestOptions = [
 
 <style>
   .contact {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+  }
+
+  .contact__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .contact__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .contact__bg-overlay {
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
       135deg,
-      var(--color-dark-900) 0%,
-      rgba(232, 70, 112, 0.05) 50%,
-      var(--color-dark-800) 100%
+      rgba(10, 10, 12, 0.92) 0%,
+      rgba(10, 10, 12, 0.85) 40%,
+      rgba(10, 10, 12, 0.75) 100%
     );
+  }
+
+  .contact .container {
+    position: relative;
+    z-index: 1;
   }
 
   .contact__grid {

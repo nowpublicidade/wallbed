@@ -1,76 +1,95 @@
 ---
+import { Image } from 'astro:assets';
+import prod01 from '../assets/images/products/IMG-PROD-01.png';
+import prod02 from '../assets/images/products/IMG-PROD-02.png';
+import prod03 from '../assets/images/products/IMG-PROD-03.png';
+import prod04 from '../assets/images/products/IMG-PROD-04.png';
+import prod05 from '../assets/images/products/IMG-PROD-05.png';
+import prod06 from '../assets/images/products/IMG-PROD-06.png';
+
 const products = [
   {
     name: 'Prime Casal',
     line: 'Prime',
     description: 'Acabamento em madeira nobre, mecanismo premium silencioso',
     sizes: 'Casal (1,38m)',
-    image: null, // placeholder
+    image: prod01,
+    alt: 'Cama retratil WallBed Prime tamanho casal com acabamento em madeira nobre',
   },
   {
     name: 'Prime Solteiro',
     line: 'Prime',
     description: 'A mesma sofisticacao em tamanho compacto',
     sizes: 'Solteiro (0,88m)',
-    image: null,
+    image: prod02,
+    alt: 'Cama retratil WallBed Prime tamanho solteiro',
   },
   {
     name: 'Basic Casal',
     line: 'Basic',
     description: 'Design clean e moderno, custo-beneficio ideal',
     sizes: 'Casal (1,38m)',
-    image: null,
+    image: prod03,
+    alt: 'Cama retratil WallBed Basic tamanho casal com acabamento branco',
   },
   {
     name: 'Basic Solteiro',
     line: 'Basic',
     description: 'Minimalismo funcional para espacos inteligentes',
     sizes: 'Solteiro (0,88m)',
-    image: null,
+    image: prod04,
+    alt: 'Cama retratil WallBed Basic tamanho solteiro',
   },
   {
     name: 'Economic Plus Casal',
     line: 'Economic Plus',
     description: 'Toda a praticidade com o melhor preco',
     sizes: 'Casal (1,38m)',
-    image: null,
+    image: prod05,
+    alt: 'Cama retratil WallBed Economic Plus tamanho casal',
   },
   {
     name: 'Economic Plus Solteiro',
     line: 'Economic Plus',
     description: 'Solucao acessivel para qualquer espaco',
     sizes: 'Solteiro (0,88m)',
-    image: null,
+    image: prod06,
+    alt: 'Cama retratil WallBed Economic Plus tamanho solteiro',
   },
 ];
 ---
 
-<section class="products section" id="produtos">
-  <div class="container">
-    <div class="products__header reveal">
-      <h2 class="section__title">Nossos Produtos</h2>
-      <p class="section__subtitle">
-        Tres linhas pensadas para diferentes necessidades.
-        Todas com a mesma qualidade WallBed.
-      </p>
+<section class="products" id="produtos">
+  <div class="products__sticky">
+    <!-- Header (always visible) -->
+    <div class="products__header">
+      <span class="products__counter">
+        <span class="products__counter-current">01</span>
+        <span class="products__counter-sep">/</span>
+        <span class="products__counter-total">{String(products.length).padStart(2, '0')}</span>
+      </span>
+      <h2 class="products__title">Nossos Produtos</h2>
     </div>
-  </div>
 
-  <div class="products__carousel">
-    <div class="products__track">
-      {products.map((product) => (
-        <div class="products__card">
-          <div class="products__card-image">
-            {/* Placeholder - will be replaced with actual images */}
-            <div class="products__card-placeholder">
-              <span class="products__card-line-badge">{product.line}</span>
-            </div>
+    <!-- Product slides -->
+    <div class="products__slides">
+      {products.map((product, i) => (
+        <div class={`products__slide ${i === 0 ? 'products__slide--active' : ''}`} data-index={i}>
+          <div class="products__slide-image">
+            <Image
+              src={product.image}
+              alt={product.alt}
+              width={900}
+              quality={85}
+              class="products__slide-img"
+            />
           </div>
-          <div class="products__card-info">
-            <h3 class="products__card-name">{product.name}</h3>
-            <p class="products__card-desc">{product.description}</p>
-            <span class="products__card-size">{product.sizes}</span>
-            <a href="#contato" class="products__card-cta">
+          <div class="products__slide-info">
+            <span class="products__slide-badge">{product.line}</span>
+            <h3 class="products__slide-name">{product.name}</h3>
+            <p class="products__slide-desc">{product.description}</p>
+            <span class="products__slide-size">{product.sizes}</span>
+            <a href="#contato" class="btn btn--primary products__slide-cta">
               Saiba mais
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -81,212 +100,313 @@ const products = [
       ))}
     </div>
 
-    <div class="products__nav container">
-      <button class="products__nav-btn products__nav-btn--prev" aria-label="Produto anterior" type="button">
-        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M10 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="products__progress">
-        <div class="products__progress-bar"></div>
+    <!-- Progress bar -->
+    <div class="products__progress">
+      <div class="products__progress-track">
+        <div class="products__progress-fill"></div>
       </div>
-      <button class="products__nav-btn products__nav-btn--next" aria-label="Proximo produto" type="button">
-        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
     </div>
   </div>
 </section>
 
 <script>
-  function initProductCarousel() {
-    const track = document.querySelector('.products__track') as HTMLElement;
-    const prevBtn = document.querySelector('.products__nav-btn--prev');
-    const nextBtn = document.querySelector('.products__nav-btn--next');
-    const progressBar = document.querySelector('.products__progress-bar') as HTMLElement;
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-    if (!track || !prevBtn || !nextBtn || !progressBar) return;
+  gsap.registerPlugin(ScrollTrigger);
 
-    const updateProgress = () => {
-      const scrollWidth = track.scrollWidth - track.clientWidth;
-      const progress = scrollWidth > 0 ? (track.scrollLeft / scrollWidth) * 100 : 0;
-      progressBar.style.width = `${Math.max(progress, 10)}%`;
-    };
+  function initProducts() {
+    const section = document.querySelector('.products') as HTMLElement;
+    if (!section) return;
 
-    prevBtn.addEventListener('click', () => {
-      track.scrollBy({ left: -340, behavior: 'smooth' });
+    const slides = document.querySelectorAll('.products__slide');
+    const counterCurrent = document.querySelector('.products__counter-current');
+    const progressFill = document.querySelector('.products__progress-fill') as HTMLElement;
+    const totalSlides = slides.length;
+
+    // Estado inicial: primeiro produto já visível
+    gsap.set(slides, {
+      opacity: 0,
+      x: 60,
+      scale: 1,
     });
 
-    nextBtn.addEventListener('click', () => {
-      track.scrollBy({ left: 340, behavior: 'smooth' });
+    gsap.set(slides[0], {
+      opacity: 1,
+      x: 0,
+      scale: 1,
     });
 
-    track.addEventListener('scroll', updateProgress);
-    updateProgress();
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.products',
+        start: 'top top',
+        end: `+=${totalSlides * 100}%`,
+        pin: '.products__sticky',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          if (progressFill) {
+            progressFill.style.width = `${self.progress * 100}%`;
+          }
+        },
+      },
+    });
+
+    const stepDuration = 1 / totalSlides;
+
+    for (let i = 1; i < totalSlides; i++) {
+      const start = i * stepDuration;
+      const transStart = start - stepDuration * 0.15;
+
+      // Esconde o produto anterior
+      tl.to(slides[i - 1], {
+        opacity: 0,
+        x: -60,
+        scale: 0.95,
+        duration: stepDuration * 0.3,
+        ease: 'power2.in',
+      }, transStart);
+
+      // Mostra o próximo produto
+      tl.fromTo(slides[i], {
+        opacity: 0,
+        x: 60,
+        scale: 1.02,
+      }, {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: stepDuration * 0.35,
+        ease: 'power2.out',
+      }, transStart + stepDuration * 0.15);
+
+      // Atualiza contador
+      tl.call(() => {
+        if (counterCurrent) {
+          counterCurrent.textContent = String(i + 1).padStart(2, '0');
+        }
+      }, [], start);
+    }
+
+    // Garante que o primeiro contador apareça correto ao entrar na seção
+    ScrollTrigger.create({
+      trigger: '.products',
+      start: 'top top',
+      onEnter: () => {
+        if (counterCurrent) {
+          counterCurrent.textContent = '01';
+        }
+      },
+      onEnterBack: () => {
+        if (counterCurrent) {
+          counterCurrent.textContent = '01';
+        }
+      },
+    });
   }
 
-  document.addEventListener('DOMContentLoaded', initProductCarousel);
+  document.addEventListener('DOMContentLoaded', initProducts);
 </script>
 
 <style>
   .products {
     background: var(--color-dark-900);
-    overflow: hidden;
-  }
-
-  .products__header {
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-
-  .products__header .section__subtitle {
-    margin-inline: auto;
-  }
-
-  .products__carousel {
     position: relative;
-  }
-
-  .products__track {
-    display: flex;
-    gap: var(--space-xl);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: var(--space-md) var(--container-padding);
-    scrollbar-width: none;
-  }
-
-  .products__track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .products__card {
-    flex: 0 0 300px;
     scroll-snap-align: start;
-    background: var(--color-dark-700);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-lg);
+  }
+
+  .products__sticky {
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    transition: all var(--transition-base);
   }
 
-  .products__card:hover {
-    border-color: rgba(232, 70, 112, 0.2);
-    transform: translateY(-4px);
+  /* ---- Header ---- */
+  .products__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    padding: var(--space-2xl) var(--container-padding);
+    padding-top: calc(var(--navbar-height) + var(--space-xl));
   }
 
-  .products__card-image {
+  .products__title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-200);
+  }
+
+  .products__counter {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-white);
+  }
+
+  .products__counter-current {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    background: var(--gradient-brand-horizontal);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .products__counter-sep {
+    margin-inline: 0.25em;
+    color: var(--color-gray-400);
+  }
+
+  .products__counter-total {
+    color: var(--color-gray-400);
+  }
+
+  /* ---- Slides ---- */
+  .products__slides {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .products__slide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-4xl);
+    align-items: center;
+    padding-inline: var(--container-padding);
+    padding-top: calc(var(--navbar-height) + var(--space-3xl));
+    padding-bottom: var(--space-3xl);
+    max-width: var(--container-wide);
+    margin-inline: auto;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .products__slide:first-child {
+    opacity: 1;
+  }
+
+  .products__slide-image {
     aspect-ratio: 1;
+    border-radius: var(--radius-xl);
     overflow: hidden;
+    background: var(--color-dark-700);
+    max-height: 65vh;
   }
 
-  .products__card-placeholder {
+  .products__slide-img {
     width: 100%;
     height: 100%;
-    background: var(--color-dark-600);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: var(--space-md);
+    object-fit: cover;
+    will-change: transform;
   }
 
-  .products__card-line-badge {
+  .products__slide-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .products__slide-badge {
+    display: inline-block;
+    width: fit-content;
     font-size: var(--font-size-xs);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 0.75rem;
+    letter-spacing: 0.15em;
+    padding: 0.375rem 1rem;
     border-radius: var(--radius-full);
-    background: rgba(232, 70, 112, 0.15);
+    background: rgba(232, 70, 112, 0.12);
     color: var(--color-brand-start);
-    border: 1px solid rgba(232, 70, 112, 0.3);
+    border: 1px solid rgba(232, 70, 112, 0.25);
   }
 
-  .products__card-info {
-    padding: var(--space-lg);
+  .products__slide-name {
+    font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-5xl));
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
-  .products__card-name {
+  .products__slide-desc {
     font-size: var(--font-size-lg);
-    font-weight: 700;
-    margin-bottom: var(--space-xs);
-  }
-
-  .products__card-desc {
-    font-size: var(--font-size-sm);
     color: var(--color-gray-300);
-    margin-bottom: var(--space-sm);
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 400px;
   }
 
-  .products__card-size {
-    display: block;
-    font-size: var(--font-size-xs);
-    color: var(--color-gray-400);
-    margin-bottom: var(--space-md);
-  }
-
-  .products__card-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-xs);
+  .products__slide-size {
     font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--color-brand-start);
-    transition: gap var(--transition-fast);
+    color: var(--color-gray-400);
+    font-weight: 500;
   }
 
-  .products__card-cta:hover {
-    gap: var(--space-sm);
+  .products__slide-cta {
+    width: fit-content;
+    margin-top: var(--space-sm);
   }
 
-  /* Navigation */
-  .products__nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-lg);
-    margin-top: var(--space-2xl);
-  }
-
-  .products__nav-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-white);
-    transition: all var(--transition-fast);
-  }
-
-  .products__nav-btn:hover {
-    border-color: var(--color-white);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
+  /* ---- Progress ---- */
   .products__progress {
-    width: 120px;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+
+  .products__progress-track {
+    width: 200px;
     height: 2px;
-    background: var(--color-dark-500);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 1px;
     overflow: hidden;
   }
 
-  .products__progress-bar {
+  .products__progress-fill {
     height: 100%;
-    width: 10%;
+    width: 0%;
     background: var(--gradient-brand-horizontal);
     border-radius: 1px;
-    transition: width var(--transition-fast);
+    transition: width 0.1s linear;
   }
 
-  @media (max-width: 640px) {
-    .products__card {
-      flex: 0 0 260px;
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .products__slide {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      padding-top: calc(var(--navbar-height) + var(--space-4xl));
+    }
+
+    .products__slide-image {
+      max-height: 40vh;
+      aspect-ratio: 4/3;
+    }
+
+    .products__slide-name {
+      font-size: var(--font-size-2xl);
+    }
+
+    .products__slide-desc {
+      font-size: var(--font-size-base);
+    }
+
+    .products__header {
+      padding-top: calc(var(--navbar-height) + var(--space-md));
     }
   }
 </style>
