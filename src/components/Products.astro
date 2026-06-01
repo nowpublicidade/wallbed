@@ -7,406 +7,463 @@ import prod04 from '../assets/images/products/IMG-PROD-04.png';
 import prod05 from '../assets/images/products/IMG-PROD-05.png';
 import prod06 from '../assets/images/products/IMG-PROD-06.png';
 
+const featured = {
+  name: 'Prime Casal',
+  line: 'Prime',
+  description: 'O topo da linha WallBed. Acabamento em madeira nobre, mecanismo silencioso de alta precisão e design que eleva qualquer ambiente.',
+  sizes: 'Casal — 1,38m',
+  image: prod01,
+  alt: 'Cama retrátil WallBed Prime tamanho casal com acabamento em madeira nobre',
+};
+
 const products = [
-  {
-    name: 'Prime Casal',
-    line: 'Prime',
-    description: 'Acabamento em madeira nobre, mecanismo premium silencioso',
-    sizes: 'Casal (1,38m)',
-    image: prod01,
-    alt: 'Cama retratil WallBed Prime tamanho casal com acabamento em madeira nobre',
-  },
   {
     name: 'Prime Solteiro',
     line: 'Prime',
-    description: 'A mesma sofisticacao em tamanho compacto',
-    sizes: 'Solteiro (0,88m)',
+    description: 'A mesma sofisticação em tamanho compacto',
+    sizes: 'Solteiro — 0,88m',
     image: prod02,
-    alt: 'Cama retratil WallBed Prime tamanho solteiro',
+    alt: 'Cama retrátil WallBed Prime tamanho solteiro',
   },
   {
     name: 'Basic Casal',
     line: 'Basic',
-    description: 'Design clean e moderno, custo-beneficio ideal',
-    sizes: 'Casal (1,38m)',
+    description: 'Design clean e moderno, custo-benefício ideal',
+    sizes: 'Casal — 1,38m',
     image: prod03,
-    alt: 'Cama retratil WallBed Basic tamanho casal com acabamento branco',
+    alt: 'Cama retrátil WallBed Basic tamanho casal com acabamento branco',
   },
   {
     name: 'Basic Solteiro',
     line: 'Basic',
-    description: 'Minimalismo funcional para espacos inteligentes',
-    sizes: 'Solteiro (0,88m)',
+    description: 'Minimalismo funcional para espaços inteligentes',
+    sizes: 'Solteiro — 0,88m',
     image: prod04,
-    alt: 'Cama retratil WallBed Basic tamanho solteiro',
+    alt: 'Cama retrátil WallBed Basic tamanho solteiro',
   },
   {
     name: 'Economic Plus Casal',
     line: 'Economic Plus',
-    description: 'Toda a praticidade com o melhor preco',
-    sizes: 'Casal (1,38m)',
+    description: 'Toda a praticidade com o melhor preço',
+    sizes: 'Casal — 1,38m',
     image: prod05,
-    alt: 'Cama retratil WallBed Economic Plus tamanho casal',
+    alt: 'Cama retrátil WallBed Economic Plus tamanho casal',
   },
   {
     name: 'Economic Plus Solteiro',
     line: 'Economic Plus',
-    description: 'Solucao acessivel para qualquer espaco',
-    sizes: 'Solteiro (0,88m)',
+    description: 'Solução acessível para qualquer espaço',
+    sizes: 'Solteiro — 0,88m',
     image: prod06,
-    alt: 'Cama retratil WallBed Economic Plus tamanho solteiro',
+    alt: 'Cama retrátil WallBed Economic Plus tamanho solteiro',
   },
 ];
 ---
 
-<section class="products" id="produtos">
-  <div class="products__sticky">
-    <!-- Header (always visible) -->
-    <div class="products__header">
-      <span class="products__counter">
-        <span class="products__counter-current">01</span>
-        <span class="products__counter-sep">/</span>
-        <span class="products__counter-total">{String(products.length).padStart(2, '0')}</span>
-      </span>
-      <h2 class="products__title">Nossos Produtos</h2>
+<section class="products section" id="produtos">
+  <div class="container container--wide">
+
+    <!-- Header -->
+    <div class="products__header reveal">
+      <h2 class="section__title">
+        Nossos <span class="products__title-accent">Produtos</span>
+      </h2>
+      <p class="section__subtitle">
+        Linha completa de camas retráteis para cada espaço, estilo e orçamento.
+        Do projeto ao dormitório — uma solução elegante.
+      </p>
     </div>
 
-    <!-- Product slides -->
-    <div class="products__slides">
+    <!-- Featured product -->
+    <div class="products__featured reveal">
+      <button
+        type="button"
+        class="products__featured-image lightbox-trigger"
+        data-lightbox-src={featured.image.src}
+        data-lightbox-alt={featured.alt}
+        data-lightbox-name={featured.name}
+        data-lightbox-desc={featured.description}
+        aria-label={`Ampliar imagem de ${featured.name}`}
+      >
+        <Image
+          src={featured.image}
+          alt={featured.alt}
+          width={900}
+          quality={85}
+          class="products__featured-img"
+        />
+      </button>
+      <a href="#contato" class="products__featured-info">
+        <span class="products__badge products__badge--featured">{featured.line}</span>
+        <h3 class="products__featured-name">{featured.name}</h3>
+        <p class="products__featured-desc">{featured.description}</p>
+        <span class="products__featured-size">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          {featured.sizes}
+        </span>
+        <span class="products__featured-cta">
+          Solicitar orçamento
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <!-- Product grid (5 remaining) -->
+    <div class="products__grid">
       {products.map((product, i) => (
-        <div class={`products__slide ${i === 0 ? 'products__slide--active' : ''}`} data-index={i}>
-          <div class="products__slide-image">
+        <div class={`products__card reveal products__card--${i + 1}`}>
+          <button
+            type="button"
+            class="products__card-image lightbox-trigger"
+            data-lightbox-src={product.image.src}
+            data-lightbox-alt={product.alt}
+            data-lightbox-name={product.name}
+            data-lightbox-desc={product.description}
+            aria-label={`Ampliar imagem de ${product.name}`}
+          >
             <Image
               src={product.image}
               alt={product.alt}
-              width={900}
-              quality={85}
-              class="products__slide-img"
+              width={600}
+              quality={80}
+              class="products__card-img"
             />
-          </div>
-          <div class="products__slide-info">
-            <span class="products__slide-badge">{product.line}</span>
-            <h3 class="products__slide-name">{product.name}</h3>
-            <p class="products__slide-desc">{product.description}</p>
-            <span class="products__slide-size">{product.sizes}</span>
-            <a href="#contato" class="btn btn--primary products__slide-cta">
-              Saiba mais
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
+          </button>
+          <a href="#contato" class="products__card-info">
+            <span class="products__badge">{product.line}</span>
+            <h3 class="products__card-name">{product.name}</h3>
+            <p class="products__card-desc">{product.description}</p>
+            <div class="products__card-footer">
+              <span class="products__card-size">{product.sizes}</span>
+              <span class="products__card-arrow">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
         </div>
       ))}
     </div>
 
-    <!-- Progress bar -->
-    <div class="products__progress">
-      <div class="products__progress-track">
-        <div class="products__progress-fill"></div>
-      </div>
-    </div>
   </div>
 </section>
 
-<script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  function initProducts() {
-    const section = document.querySelector('.products') as HTMLElement;
-    if (!section) return;
-
-    const slides = document.querySelectorAll('.products__slide');
-    const counterCurrent = document.querySelector('.products__counter-current');
-    const progressFill = document.querySelector('.products__progress-fill') as HTMLElement;
-    const totalSlides = slides.length;
-
-    // Estado inicial: primeiro produto já visível
-    gsap.set(slides, {
-      opacity: 0,
-      x: 60,
-      scale: 1,
-    });
-
-    gsap.set(slides[0], {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-    });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.products',
-        start: 'top top',
-        end: `+=${totalSlides * 100}%`,
-        pin: '.products__sticky',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          if (progressFill) {
-            progressFill.style.width = `${self.progress * 100}%`;
-          }
-        },
-      },
-    });
-
-    const stepDuration = 1 / totalSlides;
-
-    for (let i = 1; i < totalSlides; i++) {
-      const start = i * stepDuration;
-      const transStart = start - stepDuration * 0.15;
-
-      // Esconde o produto anterior
-      tl.to(slides[i - 1], {
-        opacity: 0,
-        x: -60,
-        scale: 0.95,
-        duration: stepDuration * 0.3,
-        ease: 'power2.in',
-      }, transStart);
-
-      // Mostra o próximo produto
-      tl.fromTo(slides[i], {
-        opacity: 0,
-        x: 60,
-        scale: 1.02,
-      }, {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        duration: stepDuration * 0.35,
-        ease: 'power2.out',
-      }, transStart + stepDuration * 0.15);
-
-      // Atualiza contador
-      tl.call(() => {
-        if (counterCurrent) {
-          counterCurrent.textContent = String(i + 1).padStart(2, '0');
-        }
-      }, [], start);
-    }
-
-    // Garante que o primeiro contador apareça correto ao entrar na seção
-    ScrollTrigger.create({
-      trigger: '.products',
-      start: 'top top',
-      onEnter: () => {
-        if (counterCurrent) {
-          counterCurrent.textContent = '01';
-        }
-      },
-      onEnterBack: () => {
-        if (counterCurrent) {
-          counterCurrent.textContent = '01';
-        }
-      },
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', initProducts);
-</script>
-
 <style>
+  /* ---- Section ---- */
   .products {
     background: var(--color-dark-900);
-    position: relative;
-    scroll-snap-align: start;
-  }
-
-  .products__sticky {
-    height: 100vh;
-    height: 100dvh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
   }
 
   /* ---- Header ---- */
   .products__header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: var(--space-xl);
-    padding: var(--space-2xl) var(--container-padding);
-    padding-top: calc(var(--navbar-height) + var(--space-xl));
+    margin-bottom: var(--space-3xl);
   }
 
-  .products__title {
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--color-gray-200);
-  }
-
-  .products__counter {
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    color: var(--color-white);
-  }
-
-  .products__counter-current {
-    font-size: var(--font-size-2xl);
-    font-weight: 800;
+  .products__title-accent {
     background: var(--gradient-brand-horizontal);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .products__counter-sep {
-    margin-inline: 0.25em;
-    color: var(--color-gray-400);
+  /* ---- Badge ---- */
+  .products__badge {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.875rem;
+    border-radius: var(--radius-full);
+    background: rgba(232, 70, 112, 0.1);
+    color: var(--color-brand-start);
+    border: 1px solid rgba(232, 70, 112, 0.2);
+    width: fit-content;
   }
 
-  .products__counter-total {
-    color: var(--color-gray-400);
+  .products__badge--featured {
+    padding: 0.4rem 1.25rem;
+    font-size: 0.8125rem;
   }
 
-  /* ---- Slides ---- */
-  .products__slides {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .products__slide {
-    position: absolute;
-    inset: 0;
+  /* ================================================================
+     FEATURED CARD
+  ================================================================ */
+  .products__featured {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-4xl);
-    align-items: center;
-    padding-inline: var(--container-padding);
-    padding-top: calc(var(--navbar-height) + var(--space-3xl));
-    padding-bottom: var(--space-3xl);
-    max-width: var(--container-wide);
-    margin-inline: auto;
-    opacity: 0;
-    will-change: transform, opacity;
-  }
-
-  .products__slide:first-child {
-    opacity: 1;
-  }
-
-  .products__slide-image {
-    aspect-ratio: 1;
+    grid-template-columns: 1.1fr 0.9fr;
     border-radius: var(--radius-xl);
     overflow: hidden;
     background: var(--color-dark-700);
-    max-height: 65vh;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: var(--space-2xl);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    cursor: pointer;
   }
 
-  .products__slide-img {
+  .products__featured:hover {
+    border-color: rgba(232, 70, 112, 0.3);
+    box-shadow: 0 0 60px rgba(232, 70, 112, 0.08);
+  }
+
+  .products__featured:hover .products__featured-img {
+    transform: scale(1.04);
+  }
+
+  .products__featured-image {
+    overflow: hidden;
+    background: var(--color-dark-800);
+    aspect-ratio: 4/3;
+  }
+
+  .products__featured-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.7s ease;
     will-change: transform;
   }
 
-  .products__slide-info {
+  .products__featured-info {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-3xl) var(--space-3xl) var(--space-4xl);
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
 
-  .products__slide-badge {
-    display: inline-block;
-    width: fit-content;
-    font-size: var(--font-size-xs);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    padding: 0.375rem 1rem;
-    border-radius: var(--radius-full);
-    background: rgba(232, 70, 112, 0.12);
-    color: var(--color-brand-start);
-    border: 1px solid rgba(232, 70, 112, 0.25);
+  /* Vertical accent line */
+  .products__featured-info::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 2px;
+    background: var(--gradient-brand);
+    border-radius: 2px;
+    opacity: 0.6;
   }
 
-  .products__slide-name {
-    font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-5xl));
+  .products__featured-name {
+    font-size: clamp(var(--font-size-3xl), 3vw, var(--font-size-5xl));
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.05;
     letter-spacing: -0.02em;
   }
 
-  .products__slide-desc {
+  .products__featured-desc {
     font-size: var(--font-size-lg);
-    color: var(--color-gray-300);
+    color: var(--color-gray-200);
     line-height: 1.6;
-    max-width: 400px;
+    max-width: 360px;
   }
 
-  .products__slide-size {
+  .products__featured-size {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
     font-size: var(--font-size-sm);
     color: var(--color-gray-400);
     font-weight: 500;
   }
 
-  .products__slide-cta {
+  .products__featured-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
     width: fit-content;
+    padding: 0.875rem 1.75rem;
+    background: var(--gradient-brand);
+    color: var(--color-white);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-glow);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
     margin-top: var(--space-sm);
   }
 
-  /* ---- Progress ---- */
-  .products__progress {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
+  .products__featured:hover .products__featured-cta {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(232, 70, 112, 0.45);
   }
 
-  .products__progress-track {
-    width: 200px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 1px;
+  /* ================================================================
+     PRODUCT GRID (5 cards, 3+2 centered layout)
+  ================================================================ */
+  .products__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .products__card {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-dark-700);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-xl);
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+    cursor: pointer;
   }
 
-  .products__progress-fill {
+  /* Center last 2 cards in row 2 */
+  .products__card--4 { grid-column: 2 / 4; }
+  .products__card--5 { grid-column: 4 / 6; }
+
+  .products__card:hover {
+    border-color: rgba(232, 70, 112, 0.22);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .products__card:hover .products__card-img {
+    transform: scale(1.06);
+  }
+
+  .products__card-image {
+    overflow: hidden;
+    background: var(--color-dark-800);
+    aspect-ratio: 4/3;
+  }
+
+  .products__card-img {
+    width: 100%;
     height: 100%;
-    width: 0%;
-    background: var(--gradient-brand-horizontal);
-    border-radius: 1px;
-    transition: width 0.1s linear;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .products__card-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-xl);
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .products__card-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .products__card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .products__card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: var(--space-sm);
+  }
+
+  .products__card-size {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .products__card-arrow {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(232, 70, 112, 0.08);
+    border: 1px solid rgba(232, 70, 112, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-brand-start);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .products__card:hover .products__card-arrow {
+    background: rgba(232, 70, 112, 0.18);
+    transform: translateX(3px);
+  }
+
+  /* ---- Tablet ---- */
+  @media (max-width: 1024px) {
+    .products__featured {
+      grid-template-columns: 1fr;
+    }
+
+    .products__featured-image {
+      aspect-ratio: 16/9;
+    }
+
+    .products__featured-info {
+      padding: var(--space-2xl);
+    }
+
+    .products__featured-info::before {
+      display: none;
+    }
   }
 
   /* ---- Mobile ---- */
   @media (max-width: 768px) {
-    .products__slide {
-      grid-template-columns: 1fr;
-      gap: var(--space-xl);
-      padding-top: calc(var(--navbar-height) + var(--space-4xl));
+    .products__header {
+      margin-bottom: var(--space-2xl);
     }
 
-    .products__slide-image {
-      max-height: 40vh;
-      aspect-ratio: 4/3;
+    .products__featured {
+      margin-bottom: var(--space-lg);
     }
 
-    .products__slide-name {
-      font-size: var(--font-size-2xl);
+    .products__featured-info {
+      padding: var(--space-xl);
+      gap: var(--space-md);
     }
 
-    .products__slide-desc {
+    .products__featured-desc {
       font-size: var(--font-size-base);
     }
 
-    .products__header {
-      padding-top: calc(var(--navbar-height) + var(--space-md));
+    .products__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .products__card,
+    .products__card--4,
+    .products__card--5 {
+      grid-column: 1 / -1;
+    }
+
+    .products__card-info {
+      padding: var(--space-lg);
     }
   }
 </style>

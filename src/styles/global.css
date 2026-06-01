@@ -116,7 +116,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  scroll-snap-type: y mandatory;
 }
 
 html.lenis, html.lenis body {
@@ -257,16 +256,6 @@ ol {
 .section {
   padding-block: var(--space-section);
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  scroll-snap-align: start;
-}
-
-.section > .container {
-  flex: 0 1 auto;
 }
 
 .section__title {

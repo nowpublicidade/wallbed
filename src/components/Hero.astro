@@ -12,8 +12,7 @@ import heroMobile from '../assets/images/hero/IMG-HERO-02.png';
     muted
     loop
     playsinline
-    preload="metadata"
-    poster={heroDesktop.src}
+    preload="auto"
     aria-label="Vídeo de ambiente com cama retrátil WallBed"
   >
     <source src="/videos/hero-wallbed.mp4" type="video/mp4" />
@@ -23,7 +22,7 @@ import heroMobile from '../assets/images/hero/IMG-HERO-02.png';
     <source media="(max-width: 768px)" srcset={heroMobile.src} />
     <Image
       src={heroDesktop}
-      alt="Loft moderno com cama retratil WallBed integrada a parede"
+      alt="Loft moderno com cama retrátil WallBed integrada à parede"
       class="hero__bg-image"
       widths={[800, 1200, 1672]}
       loading="eager"
@@ -36,18 +35,18 @@ import heroMobile from '../assets/images/hero/IMG-HERO-02.png';
 
   <div class="hero__content container container--wide">
     <h1 class="hero__title">
-      <span class="hero__title-line">Seu espaco.</span>
+      <span class="hero__title-line">Seu espaço.</span>
       <span class="hero__title-line">Reinventado.</span>
     </h1>
 
     <p class="hero__subtitle">
-      Camas retrateis que desaparecem quando voce precisa de espaco
-      e aparecem quando voce precisa de conforto.
+      Camas retráteis que desaparecem quando você precisa de espaço
+      e aparecem quando você precisa de conforto.
     </p>
 
     <div class="hero__actions">
       <a href="#contato" class="btn btn--primary">
-        Agendar Demonstracao
+        Agendar Demonstração
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -102,7 +101,25 @@ import heroMobile from '../assets/images/hero/IMG-HERO-02.png';
       );
   }
 
-  document.addEventListener('DOMContentLoaded', initHeroAnimation);
+  // Force video play on load (bypass autoplay restrictions)
+  function initHeroVideo() {
+    const video = document.querySelector('.hero__bg-video') as HTMLVideoElement;
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If autoplay fails, try again on first user interaction
+        const tryPlay = () => { video.play(); document.removeEventListener('click', tryPlay); document.removeEventListener('touchstart', tryPlay); };
+        document.addEventListener('click', tryPlay, { once: true });
+        document.addEventListener('touchstart', tryPlay, { once: true });
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeroAnimation();
+    initHeroVideo();
+  });
 </script>
 
 <style>
@@ -140,7 +157,6 @@ import heroMobile from '../assets/images/hero/IMG-HERO-02.png';
     display: flex;
     align-items: center;
     overflow: hidden;
-    scroll-snap-align: start;
   }
 
   .hero__bg {

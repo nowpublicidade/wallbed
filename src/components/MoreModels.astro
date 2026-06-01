@@ -8,32 +8,32 @@ import esp02 from '../assets/images/especiais/IMG-ESP-02.png';
 import esp03 from '../assets/images/especiais/IMG-ESP-03.png';
 
 const horizontals = [
-  { name: 'Prime Horizontal', description: 'Sofisticacao na versao que permite janelas e quadros acima', sizes: 'Casal e Solteiro', image: horiz01, alt: 'Cama retratil horizontal Prime em quarto com janela' },
-  { name: 'Basic Horizontal', description: 'Design clean ideal para pe-direito mais baixo', sizes: 'Casal e Solteiro', image: horiz02, alt: 'Cama retratil horizontal Basic em quarto moderno' },
-  { name: 'Economic Plus Horizontal', description: 'Praticidade horizontal com o melhor custo-beneficio', sizes: 'Casal e Solteiro', image: horiz03, alt: 'Cama retratil horizontal Economic Plus em studio' },
+  { name: 'Prime Horizontal', description: 'Sofisticação na versão que permite janelas e quadros acima', sizes: 'Casal e Solteiro', image: horiz01, alt: 'Cama retrátil horizontal Prime em quarto com janela' },
+  { name: 'Basic Horizontal', description: 'Design clean ideal para pé-direito mais baixo', sizes: 'Casal e Solteiro', image: horiz02, alt: 'Cama retrátil horizontal Basic em quarto moderno' },
+  { name: 'Economic Plus Horizontal', description: 'Praticidade horizontal com o melhor custo-benefício', sizes: 'Casal e Solteiro', image: horiz03, alt: 'Cama retrátil horizontal Economic Plus em studio' },
 ];
 
 const specials = [
   {
-    name: 'Beliche Retratil',
-    tagline: 'Duas camas, zero espaco ocupado',
-    description: 'Duas camas empilhadas que desaparecem na parede. Ideal para quartos de criancas, hospedagens e republicas.',
+    name: 'Beliche Retrátil',
+    tagline: 'Duas camas, zero espaço ocupado',
+    description: 'Duas camas empilhadas que desaparecem na parede. Ideal para quartos de crianças, hospedagens e repúblicas.',
     image: esp01,
-    alt: 'Beliche retratil WallBed com duas camas abertas',
+    alt: 'Beliche retrátil WallBed com duas camas abertas',
   },
   {
     name: 'Cama Extensiva',
-    tagline: 'Cresce quando voce precisa',
-    description: 'De solteiro para casal em segundos. Perfeita para visitas e quartos de hospedes.',
+    tagline: 'Cresce quando você precisa',
+    description: 'De solteiro para casal em segundos. Perfeita para visitas e quartos de hóspedes.',
     image: esp02,
     alt: 'Cama extensiva WallBed expandida de solteiro para casal',
   },
   {
     name: 'Cama Queen',
-    tagline: 'Conforto sem concessoes',
-    description: 'Para quem nao abre mao do tamanho. Todo o conforto de uma queen, com a versatilidade de sumir na parede.',
+    tagline: 'Conforto sem concessões',
+    description: 'Para quem não abre mão do tamanho. Todo o conforto de uma queen, com a versatilidade de sumir na parede.',
     image: esp03,
-    alt: 'Cama retratil Queen WallBed em suite master',
+    alt: 'Cama retrátil Queen WallBed em suíte master',
   },
 ];
 ---
@@ -41,9 +41,9 @@ const specials = [
 <section class="more-models section" id="modelos">
   <div class="container">
     <div class="more-models__header reveal">
-      <h2 class="section__title">Tem uma WallBed para cada espaco</h2>
+      <h2 class="section__title">Tem uma WallBed para cada espaço</h2>
       <p class="section__subtitle">
-        Alem das verticais, temos modelos horizontais e especiais
+        Além das verticais, temos modelos horizontais e especiais
         para cada tipo de projeto.
       </p>
     </div>
@@ -54,16 +54,24 @@ const specials = [
         Toda a praticidade, na horizontal
       </h3>
       <p class="more-models__block-desc reveal">
-        A versao horizontal ocupa menos altura na parede, ideal para ambientes
-        com janelas ou pe-direito mais baixo.
+        A versão horizontal ocupa menos altura na parede, ideal para ambientes
+        com janelas ou pé-direito mais baixo.
       </p>
 
       <div class="more-models__horizontal-grid stagger-children">
         {horizontals.map((item) => (
           <div class="more-models__h-card stagger-item">
-            <div class="more-models__h-card-image">
+            <button
+              type="button"
+              class="more-models__h-card-image lightbox-trigger"
+              data-lightbox-src={item.image.src}
+              data-lightbox-alt={item.alt}
+              data-lightbox-name={item.name}
+              data-lightbox-desc={item.description}
+              aria-label={`Ampliar imagem de ${item.name}`}
+            >
               <Image src={item.image} alt={item.alt} width={600} quality={80} class="more-models__img" />
-            </div>
+            </button>
             <div class="more-models__h-card-info">
               <h4 class="more-models__h-card-name">{item.name}</h4>
               <p class="more-models__h-card-desc">{item.description}</p>
@@ -81,9 +89,17 @@ const specials = [
       <div class="more-models__special-grid stagger-children">
         {specials.map((item) => (
           <div class="more-models__s-card stagger-item">
-            <div class="more-models__s-card-image">
+            <button
+              type="button"
+              class="more-models__s-card-image lightbox-trigger"
+              data-lightbox-src={item.image.src}
+              data-lightbox-alt={item.alt}
+              data-lightbox-name={item.name}
+              data-lightbox-desc={item.description}
+              aria-label={`Ampliar imagem de ${item.name}`}
+            >
               <Image src={item.image} alt={item.alt} width={600} quality={80} class="more-models__img" />
-            </div>
+            </button>
             <div class="more-models__s-card-content">
               <span class="more-models__s-card-tagline">{item.tagline}</span>
               <h4 class="more-models__s-card-name">{item.name}</h4>
